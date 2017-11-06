@@ -22,18 +22,17 @@ import model.Lancamentos;
  */
 public class LancamentosDao {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    private final String INSERT = "INSERT INTO tbLancDesp(tbcondominio_idCondominio, tbDespesas_idDespesas, Referencia, Serie,"
+    private final String INSERT = "INSERT INTO tbLancDesp(tbcondominio_idCondominio, tbDespesas_idDespesas, Referencia,"
             + "Valor, TipoRateio)"
             + "VALUES (?,?,?,?,?)";
     private final String UPDATE = "UPDATE tbLancDesp SET "
             + "Referencia = ?,"
-            + "Serie = ?,"
             + "Valor = ?,"
             + "TipoRateio = ?"
-            + "WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?) and (Serie = ?)";
+            + "WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?)";
     private final String LIST = "SELECT * FROM tbLancDesp where (tbcondominio_idCondominio = ?)";
-    private final String DELETE = "DELETE FROM tbLancDesp WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?) and (Serie = ?)";
-    private final String FindKey = "SELECT * from tbLancDesp WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?) and (Serie = ?)";
+    private final String DELETE = "DELETE FROM tbLancDesp WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?)";
+    private final String FindKey = "SELECT * from tbLancDesp WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?)";
 
     public void adicionar(Lancamentos lanc) {
 
@@ -47,9 +46,8 @@ public class LancamentosDao {
                 pstm.setInt(1, lanc.getIdCond());
                 pstm.setInt(2, lanc.getIdDesp());
                 pstm.setString(3, lanc.getReferencia());
-                pstm.setString(4, lanc.getSerie());
-                pstm.setFloat(5, lanc.getValor());
-                pstm.setInt(6, lanc.getTipoRateio());
+                pstm.setFloat(4, lanc.getValor());
+                pstm.setInt(5, lanc.getTipoRateio());
                 pstm.execute();
                 
                 JOptionPane.showMessageDialog(null, "Lançamento cadastrado com sucesso");
@@ -85,7 +83,7 @@ public class LancamentosDao {
         }
     }
 
-    public void remover(int codCond, int codBloco, int codApart) {
+    public void remover(int codCond, int codDesp, String Referencia) {
 
         Connection conn;
         conn = null;
@@ -95,43 +93,43 @@ public class LancamentosDao {
             pstm = conn.prepareStatement(DELETE);
 
             pstm.setInt(1, codCond);
-            pstm.setInt(2, codBloco);
-            pstm.setInt(2, codApart);
+            pstm.setInt(2, codDesp);
+            pstm.setString(3, Referencia);
 
             pstm.execute();
             Conectar.fechaConexao(conn, pstm);
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir apartamento do banco de dados " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao excluir lançamento do banco de dados " + e.getMessage());
         }
     }
 
-    public List<Apartamento> listar() {
+    public List<Lancamentos> listar() {
         Connection conn;
         conn = null;
         PreparedStatement pstm;
         pstm = null;
         ResultSet rs;
         rs = null;
-        ArrayList<Apartamento> apartamentos = new ArrayList<>();
+        ArrayList<Lancamentos> lancamentos = new ArrayList<>();
         try {
             conn = Conectar.getConexao();
             pstm = conn.prepareStatement(LIST);
             rs = pstm.executeQuery();
             while (rs.next()) {
-                Apartamento a = new Apartamento();
-                a.setIdCond(rs.getInt("tbBloco_tbCondominio_idCondominio"));
-                a.setIdBloco(rs.getInt("tbBloco_idBloco"));
-                a.setIdApart(rs.getInt("idApart"));
-                apartamentos.add(a);
+                Lancamentos l = new Lancamentos();
+                l.setIdCond(rs.getInt("tbcondominio_idCondominio"));
+                l.setIdDesp(rs.getInt("tbDespesas_idDespesas"));
+                l.setReferencia(rs.getString("Referencia"));
+                lancamentos.add(l);
             }
             Conectar.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao listar clientes" + e.getMessage());
         }
-        return apartamentos;
+        return lancamentos;
     }
-    public boolean FindKey(int codCond, int codBlo, int codApart){
+    public boolean FindKey(int codCond, int codDesp, String Referencia){
         Connection conn;
         conn = null;
         PreparedStatement pstm;
@@ -145,8 +143,8 @@ public class LancamentosDao {
             conn = Conectar.getConexao();
             pstm = conn.prepareStatement(FindKey);
             pstm.setInt(1, codCond);       
-            pstm.setInt(2, codBlo);   
-            pstm.setInt(3, codApart);   
+            pstm.setInt(2, codDesp);   
+            pstm.setString(3, Referencia);   
             rs = pstm.executeQuery();
             
             while (rs.next()){
@@ -155,7 +153,7 @@ public class LancamentosDao {
             }
             Conectar.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao listar apartamentos" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao listar lançamentos" + e.getMessage());
         }
         return achouChave;
     }

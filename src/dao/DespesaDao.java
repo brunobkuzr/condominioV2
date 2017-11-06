@@ -112,7 +112,7 @@ public class DespesaDao {
             while (rs.next()) {
                 Despesa d = new Despesa();
                 d.setId(rs.getInt("idDespesas"));
-                d.setNome(rs.getString("nomeBloco"));
+                d.setNome(rs.getString("nomeDesp"));
                 despesas.add(d);
             }
             Conectar.fechaConexao(conn, pstm, rs);

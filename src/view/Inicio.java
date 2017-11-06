@@ -5,6 +5,8 @@
  */
 package view;
 
+import model.Despesa;
+
 /**
  *
  * @author Lucas_Reinert
@@ -38,6 +40,7 @@ public class Inicio extends javax.swing.JFrame {
         btDespesa = new javax.swing.JButton();
         btBloco = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        btLancDesp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jRadioButtonMenuItem1.setSelected(true);
@@ -83,9 +86,11 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         jButton1.setText("Parâmetros de leitura");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+
+        btLancDesp.setText("Lançamento de despesas");
+        btLancDesp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btLancDespActionPerformed(evt);
             }
         });
 
@@ -99,6 +104,7 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(btDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
             .addComponent(btBloco, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btLancDesp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,8 +119,10 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btLancDesp, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(92, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -127,7 +135,7 @@ public class Inicio extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 684, Short.MAX_VALUE))
+                .addGap(0, 544, Short.MAX_VALUE))
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/IPTU-unidades-e-condom+¡nio.png"))); // NOI18N
@@ -181,14 +189,16 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btApartamentoActionPerformed
 
     private void btDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDespesaActionPerformed
+        DespesaForm d = new DespesaForm(null, true);
+        d.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btDespesaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         CadastroParametroLeitura pl = new CadastroParametroLeitura(null, true);
-         pl.setLocationRelativeTo(null);
-         pl.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btLancDespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLancDespActionPerformed
+        LancDesp ld = new LancDesp(null, true);
+        ld.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btLancDespActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,6 +241,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton btCondominio;
     private javax.swing.JButton btDespesa;
     private javax.swing.JButton btEscritorio;
+    private javax.swing.JButton btLancDesp;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

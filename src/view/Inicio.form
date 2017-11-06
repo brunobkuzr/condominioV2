@@ -93,7 +93,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="684" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="544" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -122,6 +122,7 @@
                       <Component id="btDespesa" alignment="0" pref="289" max="32767" attributes="0"/>
                       <Component id="btBloco" alignment="0" pref="289" max="32767" attributes="0"/>
                       <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btLancDesp" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -137,8 +138,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btDespesa" min="-2" pref="47" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton1" pref="47" max="32767" attributes="0"/>
+                          <Component id="jButton1" min="-2" pref="48" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btLancDesp" min="-2" pref="52" max="-2" attributes="0"/>
+                          <EmptySpace pref="92" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -185,8 +188,13 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Par&#xe2;metros de leitura"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btLancDesp">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Lan&#xe7;amento de despesas"/>
+                  </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btLancDespActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
