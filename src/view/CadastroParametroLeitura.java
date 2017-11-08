@@ -17,6 +17,10 @@ import model.ParametroLeitura;
  * @author Bruno Fernandes
  */
 public class CadastroParametroLeitura extends javax.swing.JDialog {
+    
+   // int cond = Integer.parseInt(tfCond.getText());
+    ParametroLeitura par = new ParametroLeitura();
+     //   List<ParametroLeitura> listaParametros = par.listar();
 
     /**
      * Creates new form CondCad
@@ -54,7 +58,7 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         tfValor = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabParametros = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         botaoAgua = new javax.swing.JRadioButton();
@@ -97,7 +101,7 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabParametros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -116,7 +120,7 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tabParametros);
 
         jButton2.setText("Cadastrar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -229,6 +233,7 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //carregaTabela();
         ParametroLeitura pl = new ParametroLeitura();
         String condominioBloqueio = tfCond.getText();
         jLabel2.setText(pl.buscarNome(Integer.parseInt(condominioBloqueio)));
@@ -329,10 +334,39 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tabParametros;
     private javax.swing.JTextField tfCond;
     private javax.swing.JTextField tfTxFin;
     private javax.swing.JTextField tfTxIni;
     private javax.swing.JTextField tfValor;
     // End of variables declaration//GEN-END:variables
+ 
+    /**
+     * 
+     
+    public void carregaTabela() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) tabParametros.getModel();
+            int nlinhas = this.tabParametros.getRowCount();
+            listaParametros = par.listar();
+            for (int i = 0; i < nlinhas; i++) {
+                dtm.removeRow(0);
+            }
+            for (int i = 0; i < listaParametros.size(); i++) {
+                ParametroLeitura p = listaParametros.get(i);
+                dtm.addRow(new String[]{
+                    String.valueOf(p.getSeq()),
+                    String.valueOf(p.getTipo()),
+                    String.valueOf(p.getTxInicial()),
+                    String.valueOf(p.getTxInicial()),
+                   
+                   String.valueOf(p.getValor())});
+            }
+        } catch (Exception e) {
+        }
+        
+        
 }
+*/
+}
+

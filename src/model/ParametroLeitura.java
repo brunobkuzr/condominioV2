@@ -7,6 +7,7 @@ package model;
 
 import dao.CondominioDao;
 import dao.ParametroLeituraDao;
+import java.util.List;
 
 /**
  *
@@ -101,5 +102,9 @@ public class ParametroLeitura {
         CondominioDao dao = new CondominioDao();
         return dao.buscarCondominio(idCond);
 
+    }
+    public List<ParametroLeitura> listar(int cond){
+        ParametroLeituraDao dao = new ParametroLeituraDao();
+        return dao.listar(cond);
     }
 }
