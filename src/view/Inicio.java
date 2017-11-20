@@ -42,6 +42,7 @@ public class Inicio extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         btLancDesp1 = new javax.swing.JButton();
         btLancDesp = new javax.swing.JButton();
+        btLancDesp2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jRadioButtonMenuItem1.setSelected(true);
@@ -107,6 +108,13 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        btLancDesp2.setText("Consumo");
+        btLancDesp2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLancDesp2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -119,6 +127,7 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btLancDesp1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btLancDesp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btLancDesp2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +147,9 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(btLancDesp1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btLancDesp, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btLancDesp2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -151,7 +162,7 @@ public class Inicio extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 635, Short.MAX_VALUE))
+                .addGap(0, 606, Short.MAX_VALUE))
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/IPTU-unidades-e-condom+¡nio.png"))); // NOI18N
@@ -227,6 +238,11 @@ public class Inicio extends javax.swing.JFrame {
         ce.setVisible(true);
     }//GEN-LAST:event_btEscritorioActionPerformed
 
+    private void btLancDesp2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLancDesp2ActionPerformed
+        CadastroConsumos cc = new CadastroConsumos(null, true);
+        cc.setVisible(true);
+    }//GEN-LAST:event_btLancDesp2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -270,6 +286,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton btEscritorio;
     private javax.swing.JButton btLancDesp;
     private javax.swing.JButton btLancDesp1;
+    private javax.swing.JButton btLancDesp2;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

@@ -24,14 +24,9 @@ public class RateioDao {
     private final String INSERT = "INSERT INTO tbRateio(tbapartamento_tbBloco_tbCondominio_idCondominio, tbapartamento_tbBloco_idBloco,"
             + "tbapartamento_idApart, Referencia, Valor)"
             + "VALUES (?,?,?,?,?)";
-//    private final String UPDATE = "UPDATE tbRateio SET "
-//            + "nomeRateio = ?,"
-//            + "logadouro = ?,"
-//            + "endereco = ?,"
-//            + "bairro = ?,"
-//            + "numero = ?,"
-//            + "complemento = ? "
-//            + "WHERE (tbCondominio_idCondominio = ?) and (idRateio = ?) ";
+    private final String UPDATE = "UPDATE tbRateio SET "
+            + "Valor = ?"
+            + "WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and (tbapartamento_idApart = ?) and (Referencia = ?) ";
     private final String LIST = "SELECT * FROM tbRateio where (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?)";
     private final String DELETE = "DELETE FROM tbRateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
@@ -67,39 +62,35 @@ public class RateioDao {
         }
     }
 
-//    public void atualizar(Rateio blo) {
-//        if (blo != null) {
-//            Connection conn;
-//            conn = null;
-//            try {
-//                conn = Conectar.getConexao();
-//                PreparedStatement pstm;
-//                pstm = conn.prepareStatement(UPDATE);
-//                
-//                pstm.setString(1, blo.getNome());
-//                pstm.setInt(2, blo.getLogradouro());
-//                pstm.setString(3, blo.getEndereco());
-//                pstm.setString(4, blo.getBairro());
-//                pstm.setString(5, blo.getNumero());
-//                pstm.setString(6, blo.getComplemento());
-//                pstm.setInt(7, blo.getIdCondominio());
-//                pstm.setInt(8, blo.getIdRateio());
-//                pstm.execute();
-//                JOptionPane.showMessageDialog(null, "Rateio alterado com sucesso");
-//                Conectar.fechaConexao(conn);
-//
-//            } catch (SQLException e) {
-//                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar o " + blo.getIdRateio() + e.getMessage());
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "O bloco enviado por parâmetro está vazio");
-//        }
-//    }
+    public void atualizar(Rateio rat) {
+        if (rat != null) {
+            Connection conn;
+            conn = null;
+            try {
+                conn = Conectar.getConexao();
+                PreparedStatement pstm;
+                pstm = conn.prepareStatement(UPDATE);
+                
+                pstm.setFloat( 1, rat.getValor());
+                pstm.setInt(2, rat.getIdCond());
+                pstm.setInt(3, rat.getIdBloco());
+                pstm.setInt(4, rat.getIdApart());
+                pstm.setString(5, rat.getReferencia());
+                pstm.execute();
+                JOptionPane.showMessageDialog(null, "Rateio alterado com sucesso");
+                Conectar.fechaConexao(conn);
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar o rateio bloco: " + rat.getIdBloco() + " apartamento: " +rat.getIdApart() + " "+ e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "O rateio enviado por parâmetro está vazio");
+        }
+    };
 
     public void remover(int codCond, int codBlo, int codApa, String referencia) {
 
         Connection conn;
-        conn = null;
         try {
             conn = Conectar.getConexao();
             PreparedStatement pstm;
