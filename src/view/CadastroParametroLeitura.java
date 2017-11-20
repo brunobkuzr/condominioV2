@@ -236,7 +236,7 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
         //carregaTabela();
         ParametroLeitura pl = new ParametroLeitura();
         String condominioBloqueio = tfCond.getText();
-        jLabel2.setText(pl.buscarNome(Integer.parseInt(condominioBloqueio)));
+        jLabel2.setText(pl.buscarNome(Integer.parseInt(condominioBloqueio)).getNome());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tfValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfValorActionPerformed

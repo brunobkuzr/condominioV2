@@ -130,11 +130,11 @@ public class BlocoDao {
             pstm = conn.prepareStatement(LIST);
             rs = pstm.executeQuery();
             while (rs.next()) {
-                Bloco c = new Bloco();
-                c.setIdCondominio(rs.getInt("idCondominio"));
-                c.setIdBloco(rs.getInt("idBloco"));
-                c.setNome(rs.getString("nomeBloco"));
-                blocos.add(c);
+                Bloco b = new Bloco();
+                b.setIdCondominio(rs.getInt("idCondominio"));
+                b.setIdBloco(rs.getInt("idBloco"));
+                b.setNome(rs.getString("nomeBloco"));
+                blocos.add(b);
             }
             Conectar.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
@@ -156,7 +156,7 @@ public class BlocoDao {
             conn = Conectar.getConexao();
             pstm = conn.prepareStatement(FindKey);
             pstm.setInt(1, codCond);       
-            pstm.setInt(1, codBlo);   
+            pstm.setInt(2, codBlo);   
             rs = pstm.executeQuery();
             Bloco c = new Bloco();
             

@@ -22,8 +22,8 @@ import model.Bloco;
  */
 public class ApartamentoDao {
      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    private final String INSERT = "INSERT INTO tbApartamento(tbBloco_tbCondominio_idCondominio, tbBloco_idBloco, idApart"
-            + "nomeProprietario, telefoneProprietario, emailProprietario, logradouroProprietario, enderecoProprietario, bairroProprietario"
+    private final String INSERT = "INSERT INTO tbapartamento(tbBloco_tbCondominio_idCondominio, tbBloco_idBloco, idApart, "
+            + "nomeProprietario, telefoneProprietario, emailProprietario, logradouroProprietario, enderecoProprietario, bairroProprietario,"
             + "numeroProprietario, complementoProprietario, nomeMorador, telefoneMorador, emailMorador, coeficienteApartamento)"
             + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final String UPDATE = "UPDATE tbApartamento SET "
@@ -40,7 +40,7 @@ public class ApartamentoDao {
             + "emailMorador = ?,"
             + "coeficienteApartamento = ?"
             + "WHERE (tbBloco_tbCondominio_idCondominio = ?) and (tbBloco_idBloco = ?) and (idApart = ?) ";
-    private final String LIST = "SELECT * FROM tbApartamento where (tbBloco_tbCondominio_idCondominio = ?) and (tbBloco_idBloco = ?)";
+    private final String LIST = "SELECT * FROM tbApartamento where (tbBloco_tbCondominio_idCondominio = ?)";
     private final String DELETE = "DELETE FROM tbApartamento WHERE (tbBloco_tbCondominio_idCondominio = ?) and (tbBloco_idBloco = ?) and (idApart = ?)";
     private final String FindKey = "SELECT * from tbApartamento WHERE (tbBloco_tbCondominio_idCondominio = ?) and (tbBloco_idBloco = ?) and (idApart = ?) ";
 
@@ -66,8 +66,8 @@ public class ApartamentoDao {
                 pstm.setString(11, apa.getComplementoProprietario());
                 pstm.setString(12, apa.getNomeMorador());
                 pstm.setString(13, apa.getTelefoneMorador());
-                pstm.setString(13, apa.getEmailMorador());
-                pstm.setFloat(14, apa.getCoeficienteApartamento());
+                pstm.setString(14, apa.getEmailMorador());
+                pstm.setFloat(15, apa.getCoeficienteApartamento());
                 pstm.execute();
                 
                 JOptionPane.showMessageDialog(null, "Apartamento cadastrado com sucesso");
@@ -113,7 +113,7 @@ public class ApartamentoDao {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar o " + apa.getIdApart()+ e.getMessage());
             }
         } else {
-            JOptionPane.showMessageDialog(null, "O bloco enviado por parâmetro está vazio");
+            JOptionPane.showMessageDialog(null, "O apartamento enviado por parâmetro está vazio");
         }
     }
 
@@ -138,7 +138,7 @@ public class ApartamentoDao {
         }
     }
 
-    public List<Apartamento> listar() {
+    public List<Apartamento> listar(int codCond) {
         Connection conn;
         conn = null;
         PreparedStatement pstm;
@@ -149,6 +149,7 @@ public class ApartamentoDao {
         try {
             conn = Conectar.getConexao();
             pstm = conn.prepareStatement(LIST);
+            pstm.setInt(1, codCond);
             rs = pstm.executeQuery();
             while (rs.next()) {
                 Apartamento a = new Apartamento();

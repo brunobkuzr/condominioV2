@@ -40,6 +40,7 @@ public class Inicio extends javax.swing.JFrame {
         btDespesa = new javax.swing.JButton();
         btBloco = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        btLancDesp1 = new javax.swing.JButton();
         btLancDesp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -56,6 +57,11 @@ public class Inicio extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastros", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         btEscritorio.setText("Escritório");
+        btEscritorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEscritorioActionPerformed(evt);
+            }
+        });
 
         btCondominio.setText("Condomínio");
         btCondominio.addActionListener(new java.awt.event.ActionListener() {
@@ -87,7 +93,14 @@ public class Inicio extends javax.swing.JFrame {
 
         jButton1.setText("Parâmetros de leitura");
 
-        btLancDesp.setText("Lançamento de despesas");
+        btLancDesp1.setText("Lançamento de despesas");
+        btLancDesp1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLancDesp1ActionPerformed(evt);
+            }
+        });
+
+        btLancDesp.setText("Rateio");
         btLancDesp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btLancDespActionPerformed(evt);
@@ -100,10 +113,11 @@ public class Inicio extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btEscritorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btCondominio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btApartamento, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-            .addComponent(btDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-            .addComponent(btBloco, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+            .addComponent(btApartamento, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+            .addComponent(btDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+            .addComponent(btBloco, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btLancDesp1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btLancDesp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
@@ -121,8 +135,10 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btLancDesp1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btLancDesp, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -135,7 +151,7 @@ public class Inicio extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 544, Short.MAX_VALUE))
+                .addGap(0, 635, Short.MAX_VALUE))
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/IPTU-unidades-e-condom+¡nio.png"))); // NOI18N
@@ -195,10 +211,21 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btDespesaActionPerformed
 
     private void btLancDespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLancDespActionPerformed
+        RealizarRateio rr = new RealizarRateio(null, true);
+        rr.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btLancDespActionPerformed
+
+    private void btLancDesp1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLancDesp1ActionPerformed
         LancDesp ld = new LancDesp(null, true);
         ld.setVisible(true);
         // TODO add your handling code here:
-    }//GEN-LAST:event_btLancDespActionPerformed
+    }//GEN-LAST:event_btLancDesp1ActionPerformed
+
+    private void btEscritorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEscritorioActionPerformed
+        CadastroEscritorio ce = new CadastroEscritorio(null, true);
+        ce.setVisible(true);
+    }//GEN-LAST:event_btEscritorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,6 +269,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton btDespesa;
     private javax.swing.JButton btEscritorio;
     private javax.swing.JButton btLancDesp;
+    private javax.swing.JButton btLancDesp1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

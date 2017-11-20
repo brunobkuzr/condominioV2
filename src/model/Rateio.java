@@ -5,18 +5,20 @@
  */
 package model;
 
+import dao.RateioDao;
+import java.util.List;
+
 /**
  *
  * @author Lucas_Reinert
  */
 public class Rateio {
+
     private int idCond;
     private int idBloco;
     private int idApart;
     private String referencia;
-    private String serie;
     private float valor;
-    private int tipoRateio;
 
     public Rateio() {
     }
@@ -53,14 +55,6 @@ public class Rateio {
         this.referencia = referencia;
     }
 
-    public String getSerie() {
-        return serie;
-    }
-
-    public void setSerie(String serie) {
-        this.serie = serie;
-    }
-
     public float getValor() {
         return valor;
     }
@@ -69,11 +63,30 @@ public class Rateio {
         this.valor = valor;
     }
 
-    public int getTipoRateio() {
-        return tipoRateio;
+    public void realizarRateio(List<Apartamento> apartamentos, List<Lancamentos> lancamentos, Condominio condominio) {
+
+        RateioDao dao = new RateioDao();
+        for (Apartamento apartamento : apartamentos) {
+            valor = 0;
+            for (Lancamentos lancamento : lancamentos) {
+                switch (lancamento.getTipoRateio()) {
+                    case 0:
+                        valor = valor + ((apartamento.getCoeficienteApartamento() / condominio.getCoeficiente()) * lancamento.getValor());
+                        break;
+
+                    case 1:
+                        valor = valor + ((1 / apartamentos.size()) * lancamento.getValor());
+                        break;
+                }
+                idCond = apartamento.getIdCond();
+                idBloco = apartamento.getIdBloco();
+                idApart = apartamento.getIdApart();
+                referencia = lancamento.getReferencia();
+
+            }
+            // método salvar..
+            dao.adicionar(this);
+        }
     }
 
-    public void setTipoRateio(int tipoRateio) {
-        this.tipoRateio = tipoRateio;
-    }
 }

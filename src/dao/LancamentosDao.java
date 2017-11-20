@@ -21,6 +21,7 @@ import model.Lancamentos;
  * @author Lucas_Reinert
  */
 public class LancamentosDao {
+
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private final String INSERT = "INSERT INTO tbLancDesp(tbcondominio_idCondominio, tbDespesas_idDespesas, Referencia,"
             + "Valor, TipoRateio)"
@@ -30,7 +31,7 @@ public class LancamentosDao {
             + "Valor = ?,"
             + "TipoRateio = ?"
             + "WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?)";
-    private final String LIST = "SELECT * FROM tbLancDesp where (tbcondominio_idCondominio = ?)";
+    private final String LIST = "SELECT * FROM tbLancDesp where (tbcondominio_idCondominio = ?) and (Referencia = ?)";
     private final String DELETE = "DELETE FROM tbLancDesp WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?)";
     private final String FindKey = "SELECT * from tbLancDesp WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?)";
 
@@ -49,7 +50,7 @@ public class LancamentosDao {
                 pstm.setFloat(4, lanc.getValor());
                 pstm.setInt(5, lanc.getTipoRateio());
                 pstm.execute();
-                
+
                 JOptionPane.showMessageDialog(null, "Lançamento cadastrado com sucesso");
                 Conectar.fechaConexao(conn, pstm);
 
@@ -70,13 +71,13 @@ public class LancamentosDao {
                 conn = Conectar.getConexao();
                 PreparedStatement pstm;
                 pstm = conn.prepareStatement(UPDATE);
-                
+
                 pstm.execute();
                 JOptionPane.showMessageDialog(null, "Lançamento alterado com sucesso");
                 Conectar.fechaConexao(conn);
 
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar o " + lanc.getIdDesp()+ e.getMessage());
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar o " + lanc.getIdDesp() + e.getMessage());
             }
         } else {
             JOptionPane.showMessageDialog(null, "O lançamento enviado por parâmetro está vazio");
@@ -104,7 +105,7 @@ public class LancamentosDao {
         }
     }
 
-    public List<Lancamentos> listar() {
+    public List<Lancamentos> listar(Lancamentos lancamento) {
         Connection conn;
         conn = null;
         PreparedStatement pstm;
@@ -115,12 +116,19 @@ public class LancamentosDao {
         try {
             conn = Conectar.getConexao();
             pstm = conn.prepareStatement(LIST);
+            pstm.setInt(1, lancamento.getIdCond());
+            pstm.setString(2, lancamento.getReferencia());
             rs = pstm.executeQuery();
             while (rs.next()) {
                 Lancamentos l = new Lancamentos();
-                l.setIdCond(rs.getInt("tbcondominio_idCondominio"));
-                l.setIdDesp(rs.getInt("tbDespesas_idDespesas"));
-                l.setReferencia(rs.getString("Referencia"));
+                if ((rs.getInt("tbcondominio_idCondominio") == lancamento.getIdCond())
+                        && (rs.getString("Referencia").equals(lancamento.getReferencia()))) {
+                    l.setIdCond(rs.getInt("tbcondominio_idCondominio"));
+                    l.setIdDesp(rs.getInt("tbDespesas_idDespesas"));
+                    l.setReferencia(rs.getString("Referencia"));
+                    l.setValor(rs.getFloat("Valor"));
+                    l.setTipoRateio(rs.getInt("TipoRateio"));
+                }
                 lancamentos.add(l);
             }
             Conectar.fechaConexao(conn, pstm, rs);
@@ -129,7 +137,8 @@ public class LancamentosDao {
         }
         return lancamentos;
     }
-    public boolean FindKey(int codCond, int codDesp, String Referencia){
+
+    public boolean FindKey(int codCond, int codDesp, String Referencia) {
         Connection conn;
         conn = null;
         PreparedStatement pstm;
@@ -137,17 +146,16 @@ public class LancamentosDao {
         ResultSet rs;
         rs = null;
         boolean achouChave = false;
-        
-        
+
         try {
             conn = Conectar.getConexao();
             pstm = conn.prepareStatement(FindKey);
-            pstm.setInt(1, codCond);       
-            pstm.setInt(2, codDesp);   
-            pstm.setString(3, Referencia);   
+            pstm.setInt(1, codCond);
+            pstm.setInt(2, codDesp);
+            pstm.setString(3, Referencia);
             rs = pstm.executeQuery();
-            
-            while (rs.next()){
+
+            while (rs.next()) {
                 achouChave = true;
                 break;
             }

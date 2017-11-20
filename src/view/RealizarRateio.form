@@ -52,8 +52,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jFormattedTextField1" min="-2" pref="64" max="-2" attributes="0"/>
-                              <Component id="jTextField8" min="-2" pref="47" max="-2" attributes="0"/>
+                              <Component id="edReferencia" min="-2" pref="64" max="-2" attributes="0"/>
+                              <Component id="edCodCon" min="-2" pref="47" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -68,12 +68,12 @@
                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="edCodCon" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jFormattedTextField1" min="-2" max="-2" attributes="0"/>
+                      <Component id="edReferencia" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
@@ -94,8 +94,11 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Realizar rateio"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
+        <Component class="javax.swing.JFormattedTextField" name="edReferencia">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="MM/yyyy" subtype="-1" type="1"/>
@@ -248,7 +251,7 @@
             <Property name="text" type="java.lang.String" value="Condom&#xed;nio"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField8">
+        <Component class="javax.swing.JTextField" name="edCodCon">
         </Component>
       </SubComponents>
     </Container>

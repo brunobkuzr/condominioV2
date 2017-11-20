@@ -5,6 +5,10 @@
  */
 package view;
 
+import dao.ApartamentoDao;
+import dao.BlocoDao;
+import dao.CondominioDao;
+import javax.swing.JOptionPane;
 import model.Apartamento;
 
 /**
@@ -68,6 +72,8 @@ public class CadastroApartamento extends javax.swing.JDialog {
         jTable2 = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         edCompPro = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        edNumero = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,6 +148,8 @@ public class CadastroApartamento extends javax.swing.JDialog {
 
         jLabel15.setText("Complemento proprietário");
 
+        jLabel10.setText("Número");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -189,12 +197,14 @@ public class CadastroApartamento extends javax.swing.JDialog {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel5)
-                                    .addComponent(jLabel9))
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(edTelPro)
                                     .addComponent(edLogradPro, 0, 188, Short.MAX_VALUE)
-                                    .addComponent(edBaiPro))))))
+                                    .addComponent(edBaiPro)
+                                    .addComponent(edNumero))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -237,7 +247,9 @@ public class CadastroApartamento extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(edCompPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edCompPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(edNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(edNomMor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,27 +292,46 @@ public class CadastroApartamento extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Apartamento ap = new Apartamento();
-        ap.setIdBloco(Integer.parseInt(edCodBlo.getText()));
-        ap.setIdApart(Integer.parseInt(edCodApa.getText()));
-        
-        //Proprietario
-        ap.setNomeProprietario(edNomPro.getText());        
-        ap.setTelefoneProprietario(edTelPro.getText());        
-        ap.setCoeficienteApartamento(Float.parseFloat(edCoef.getText()));
-        ap.setBairroProprietario(edBaiPro.getText());
-        ap.setComplementoProprietario(edCompPro.getText());
-        ap.setLogradouroProprietario(edLogradPro.getItemAt(edLogradPro.getSelectedIndex()));
-        ap.setEnderecoProprietario(edEndPro.getText());
-        ap.setEmailProprietario(edEmlPro.getText());
-        
-        //Morador
-        ap.setNomeMorador(edNomMor.getText());
-        ap.setTelefoneMorador(edTelMor.getText());
-        ap.setEmailMorador(edEmlMor.getText());
-        
-        
-        
+        CondominioDao condDao = new CondominioDao();
+
+        if (condDao.FindKey(Integer.parseInt(edCodCon.getText()))) {
+            BlocoDao blocoDao = new BlocoDao();
+            if (blocoDao.FindKey(Integer.parseInt(edCodCon.getText()), Integer.parseInt(edCodBlo.getText()))) {
+                Apartamento ap = new Apartamento();
+                ApartamentoDao ad = new ApartamentoDao();
+                ap.setIdCond(Integer.parseInt(edCodCon.getText()));
+                ap.setIdBloco(Integer.parseInt(edCodBlo.getText()));
+                ap.setIdApart(Integer.parseInt(edCodApa.getText()));
+
+                //Proprietario
+                ap.setNomeProprietario(edNomPro.getText());
+                ap.setTelefoneProprietario(edTelPro.getText());
+                ap.setCoeficienteApartamento(Float.parseFloat(edCoef.getText()));
+                ap.setBairroProprietario(edBaiPro.getText());
+                ap.setComplementoProprietario(edCompPro.getText());
+                ap.setLogradouroProprietario(edLogradPro.getItemAt(edLogradPro.getSelectedIndex()));
+                ap.setEnderecoProprietario(edEndPro.getText());
+                ap.setEmailProprietario(edEmlPro.getText());
+                ap.setNumeroProprietario(edNumero.getText());
+                
+
+                //Morador
+                ap.setNomeMorador(edNomMor.getText());
+                ap.setTelefoneMorador(edTelMor.getText());
+                ap.setEmailMorador(edEmlMor.getText());
+                if (ad.FindKey(Integer.parseInt(edCodCon.getText()), Integer.parseInt(edCodBlo.getText()), Integer.parseInt(edCodApa.getText()))) {
+                    ad.atualizar(ap);                    
+                } else {
+                    ad.adicionar(ap);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Bloco " + edCodBlo.getText() + " não encontrado.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Condomínio " + edCodCon.getText() + " não encontrado.");
+        }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -359,11 +390,13 @@ public class CadastroApartamento extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> edLogradPro;
     private javax.swing.JTextField edNomMor;
     private javax.swing.JTextField edNomPro;
+    private javax.swing.JTextField edNumero;
     private javax.swing.JTextField edTelMor;
     private javax.swing.JTextField edTelPro;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

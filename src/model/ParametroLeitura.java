@@ -98,7 +98,7 @@ public class ParametroLeitura {
      * @param idCond é o código do condominio que vai ser buscado.
      * @return nome do condominio
      */  
-    public String buscarNome(int idCond) {
+    public Condominio buscarNome(int idCond) {
         CondominioDao dao = new CondominioDao();
         return dao.buscarCondominio(idCond);
 

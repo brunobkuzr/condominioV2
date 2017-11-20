@@ -11,12 +11,13 @@ import model.Escritorio;
  *
  * @author Lucas_Reinert
  */
-public class CadastroEscritorio extends javax.swing.JFrame {
+public class CadastroEscritorio extends javax.swing.JDialog {
 
     /**
-     * Creates new form CadastroEscritorio
+     * Creates new form CadastroEscritorio1
      */
-    public CadastroEscritorio() {
+    public CadastroEscritorio(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -29,8 +30,6 @@ public class CadastroEscritorio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
-        jScrollBar1 = new javax.swing.JScrollBar();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -48,9 +47,7 @@ public class CadastroEscritorio extends javax.swing.JFrame {
         edNumero = new javax.swing.JTextField();
         cbLogradouro = new javax.swing.JComboBox<>();
 
-        jLabel5.setText("jLabel5");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setText("Cadastrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -203,11 +200,19 @@ public class CadastroEscritorio extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CadastroEscritorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroEscritorio().setVisible(true);
+                CadastroEscritorio dialog = new CadastroEscritorio(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -225,11 +230,9 @@ public class CadastroEscritorio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollBar jScrollBar1;
     // End of variables declaration//GEN-END:variables
 }

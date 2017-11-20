@@ -150,14 +150,14 @@ public class CondominioDao {
         return condominios;
     }
     
-    public String buscarCondominio(int idCond) {
+    public Condominio buscarCondominio(int idCond) {
         Connection conn;
         conn = null;
         PreparedStatement pstm;
         pstm = null;
         ResultSet rs;
+        Condominio cond = new Condominio();
         rs = null;
-        String nome = "";
         ArrayList<Condominio> condominios = new ArrayList<Condominio>();
         try {
             conn = Conectar.getConexao();
@@ -165,14 +165,18 @@ public class CondominioDao {
             rs = pstm.executeQuery();
             while (rs.next()) {
                 if(rs.getInt("idCondominio") == idCond){
-                nome = rs.getString("nomeCondominio");
+                    
+                cond.setNome(rs.getString("nomeCondominio"));
+                cond.setCoeficiente(rs.getFloat("coeficiente"));
+                       
+                break;
                 }
             }
             Conectar.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao listar clientes" + e.getMessage());
         }
-        return nome;
+        return cond;
     }
     public boolean FindKey(int cod){
         Connection conn;
