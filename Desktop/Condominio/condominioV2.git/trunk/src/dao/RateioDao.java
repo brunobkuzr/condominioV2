@@ -25,14 +25,14 @@ public class RateioDao {
     private final String INSERT = "INSERT INTO tbRateio(tbapartamento_tbBloco_tbCondominio_idCondominio, tbapartamento_tbBloco_idBloco,"
             + "tbapartamento_idApart, Referencia, Valor)"
             + "VALUES (?,?,?,?,?)";
-    private final String UPDATE = "UPDATE tbRateio SET "
+    private final String UPDATE = "UPDATE Rateio SET "
             + "Valor = ?"
             + "WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and (tbapartamento_idApart = ?) and (Referencia = ?) ";
-    private final String LIST = "SELECT * FROM tbRateio where (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
+    private final String LIST = "SELECT * FROM Rateio where (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?)";
-    private final String DELETE = "DELETE FROM tbRateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
+    private final String DELETE = "DELETE FROM Rateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?)";
-    private final String FindKey = "SELECT * from tbRateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
+    private final String FindKey = "SELECT * from Rateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?) ";
 
     private final String FindRateio = "SELECT * FROM rateio WHERE tbapartamento_tbBloco_tbCondominio_idCondominio = ? and Referencia = ?";
@@ -143,7 +143,7 @@ public class RateioDao {
     }
 
     public ArrayList<Rateio> gerarRelatorio(int cond, String data) {
-        ArrayList<Rateio> rateios = new ArrayList();
+        ArrayList<Rateio> rateios = new ArrayList<Rateio>();
         Connection conn;
         conn = null;
         PreparedStatement pstm;
