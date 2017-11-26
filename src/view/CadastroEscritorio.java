@@ -6,6 +6,7 @@
 package view;
 
 import dao.EscritorioDao;
+import javax.swing.JOptionPane;
 import model.Escritorio;
 
 /**
@@ -42,14 +43,14 @@ public class CadastroEscritorio extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         edNome = new javax.swing.JTextField();
-        edTelefone = new javax.swing.JTextField();
         edEmail = new javax.swing.JTextField();
         edEndereco = new javax.swing.JTextField();
         edBairro = new javax.swing.JTextField();
         edNumero = new javax.swing.JTextField();
-        cbLogradouro = new javax.swing.JComboBox<>();
+        cbLogradouro = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
         edComplemento = new javax.swing.JTextField();
+        edTelefone = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -74,9 +75,15 @@ public class CadastroEscritorio extends javax.swing.JDialog {
 
         jLabel8.setText("Número");
 
-        cbLogradouro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aeroporto", "Alameda", "Área", "Avenida", "Campo", "Chácara", "Colônia", "Condomínio", "Conjunto", "Distrito", "Esplanada", "Estação", "Estrada", "Favela", "Feira", "Jardim", "Ladeira", "Lago", "Lagoa", "Largo", "Loteamento", "Morro", "Núcleo", "Parque", "Passarela", "Pátio", "Praça", "Quadra", "Recanto", "Residencial", "Rodovia", "Rua", "Setor", "Sítio", "Travessa", "Trecho", "Trevo", "Vale", "Vereda", "Via", "Viaduto", "Viela", "Vila" }));
+        cbLogradouro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aeroporto", "Alameda", "Área", "Avenida", "Campo", "Chácara", "Colônia", "Condomínio", "Conjunto", "Distrito", "Esplanada", "Estação", "Estrada", "Favela", "Feira", "Jardim", "Ladeira", "Lago", "Lagoa", "Largo", "Loteamento", "Morro", "Núcleo", "Parque", "Passarela", "Pátio", "Praça", "Quadra", "Recanto", "Residencial", "Rodovia", "Rua", "Setor", "Sítio", "Travessa", "Trecho", "Trevo", "Vale", "Vereda", "Via", "Viaduto", "Viela", "Vila" }));
 
         jLabel9.setText("Complemento");
+
+        try {
+            edTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) -#####-####    ")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -108,10 +115,10 @@ public class CadastroEscritorio extends javax.swing.JDialog {
                             .addComponent(edComplemento, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(edEndereco, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(edEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbLogradouro, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbLogradouro, javax.swing.GroupLayout.Alignment.LEADING, 0, 211, Short.MAX_VALUE)
                             .addComponent(edBairro, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(edNumero, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(edTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(edTelefone, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addComponent(jButton1)))
@@ -174,19 +181,47 @@ public class CadastroEscritorio extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         EscritorioDao dao = new EscritorioDao();
         Escritorio esc = new Escritorio();
-        esc.setNome(edNome.getText());
-        esc.setTelefone(edTelefone.getText());
+        int contExcecoes = 0;
+
+        if (edNome.getText() == null || edNome.getText().isEmpty()) {
+            try {
+                throw new Exception("Nome inválido!");
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                contExcecoes++;
+            }
+
+        } else {
+            esc.setNome(edNome.getText());
+        }
+        if ((edTelefone.getText() == null) || (edTelefone.getText().isEmpty())
+                || (edTelefone.getText().contains("A,B,C,D,E,F,G,H,F,H,I,J,K,L,M,O,P,Q,V,X,W,Z',*,t,/,¨%,$,#,@,!"))) {
+
+            try {
+                throw new Exception("Número de telefone inválido!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                contExcecoes++;
+            }
+        } else {
+            esc.setTelefone(edTelefone.getText());
+        }
+
         esc.setEmail(edEmail.getText());
         esc.setLogradouro(cbLogradouro.getSelectedIndex());
         esc.setEndereco(edEndereco.getText());
         esc.setBairro(edBairro.getText());
         esc.setNumero(edNumero.getText());
         esc.setComplemento(edComplemento.getText());
-        
+
         if (dao.existeCadastro()) {
             dao.atualizar(esc);
         } else {
-            dao.adicionar(esc);
+            if (contExcecoes > 0) {
+            } else {
+                dao.adicionar(esc);
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -243,7 +278,7 @@ public class CadastroEscritorio extends javax.swing.JDialog {
         edBairro.setText(esc.getBairro());
         edNumero.setText(esc.getNumero());
         edEndereco.setText(esc.getEndereco());
-        edComplemento.setText(esc.getComplemento());                        
+        edComplemento.setText(esc.getComplemento());
     }
 
 
@@ -255,7 +290,7 @@ public class CadastroEscritorio extends javax.swing.JDialog {
     private javax.swing.JTextField edEndereco;
     private javax.swing.JTextField edNome;
     private javax.swing.JTextField edNumero;
-    private javax.swing.JTextField edTelefone;
+    private javax.swing.JFormattedTextField edTelefone;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

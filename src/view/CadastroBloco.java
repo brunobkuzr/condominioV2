@@ -152,20 +152,45 @@ public class CadastroBloco extends javax.swing.JDialog {
         if (CondDao.FindKey(Integer.parseInt(edIdCond.getText()))) {
             Bloco bloco = new Bloco();
             BlocoDao dao = new BlocoDao();
-            bloco.setIdCondominio(Integer.parseInt(edIdCond.getText()));
-            bloco.setIdBloco(Integer.parseInt(edIdBloco.getText()));
-            bloco.setNome(edNome.getText());
+            int contExcecao = 0;
+            if (edIdCond.getText() == null || edIdCond.getText().isEmpty()) {
+                contExcecao++;
+                try {
+                    throw new Exception("ID do condomínio inválido!");
 
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    contExcecao++;
+                }
+            } else {
+                bloco.setIdCondominio(Integer.parseInt(edIdCond.getText()));
+            }
+            if (edIdBloco.getText() == null || edIdBloco.getText().isEmpty()) {
+                contExcecao++;
+                try {
+                    throw new Exception("ID do bloco inválido!");
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    contExcecao++;
+                }
+            } else {
+                bloco.setIdBloco(Integer.parseInt(edIdBloco.getText()));
+            }
+
+            bloco.setNome(edNome.getText());
+            
             if (dao.FindKey(Integer.parseInt(edIdCond.getText()), Integer.parseInt(edIdBloco.getText()))) {
                 dao.atualizar(bloco);
-            } else {
+            }else{
                 dao.adicionar(bloco);
-            }
+            }                
+                
             carregaTabela();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Condominio não cadastrado!");
         }
-            
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
