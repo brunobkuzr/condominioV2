@@ -114,14 +114,14 @@ public class BlocoDao {
             rs = pstm.executeQuery();
             while (rs.next()) {
                 Bloco b = new Bloco();
-                b.setIdCondominio(rs.getInt("idCondominio"));
+                b.setIdCondominio(rs.getInt("tbCondominio_idCondominio"));
                 b.setIdBloco(rs.getInt("idBloco"));
                 b.setNome(rs.getString("nomeBloco"));
                 blocos.add(b);
             }
             Conectar.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao listar clientes" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao listar blocos " + e.getMessage());
         }
         return blocos;
     }

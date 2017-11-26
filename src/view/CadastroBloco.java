@@ -8,6 +8,7 @@ package view;
 import dao.BlocoDao;
 import dao.CondominioDao;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Bloco;
 import model.Condominio;
@@ -147,18 +148,24 @@ public class CadastroBloco extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Bloco bloco = new Bloco();
-        BlocoDao dao = new BlocoDao();
-        bloco.setIdCondominio(Integer.parseInt(edIdCond.getText()));
-        bloco.setIdBloco(Integer.parseInt(edIdBloco.getText()));
-        bloco.setNome(edNome.getText());
+        CondominioDao CondDao = new CondominioDao();
+        if (CondDao.FindKey(Integer.parseInt(edIdCond.getText()))) {
+            Bloco bloco = new Bloco();
+            BlocoDao dao = new BlocoDao();
+            bloco.setIdCondominio(Integer.parseInt(edIdCond.getText()));
+            bloco.setIdBloco(Integer.parseInt(edIdBloco.getText()));
+            bloco.setNome(edNome.getText());
 
-        if (dao.FindKey(Integer.parseInt(edIdCond.getText()), Integer.parseInt(edIdBloco.getText()))) {
-            dao.atualizar(bloco);
-        } else {
-            dao.adicionar(bloco);
+            if (dao.FindKey(Integer.parseInt(edIdCond.getText()), Integer.parseInt(edIdBloco.getText()))) {
+                dao.atualizar(bloco);
+            } else {
+                dao.adicionar(bloco);
+            }
+            carregaTabela();
+        }else{
+            JOptionPane.showMessageDialog(null, "Condominio não cadastrado!");
         }
-        carregaTabela();
+            
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked

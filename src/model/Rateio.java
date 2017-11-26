@@ -67,25 +67,31 @@ public class Rateio {
 
         RateioDao dao = new RateioDao();
         for (Apartamento apartamento : apartamentos) {
-            valor = 0;
-            for (Lancamentos lancamento : lancamentos) {
-                switch (lancamento.getTipoRateio()) {
-                    case 0:
-                        valor = valor + ((apartamento.getCoeficienteApartamento() / condominio.getCoeficiente()) * lancamento.getValor());
-                        break;
+            if (lancamentos.size() > 0) {
+                valor = 0;
+                //rateio de despesas
+                for (Lancamentos lancamento : lancamentos) {
+                    switch (lancamento.getTipoRateio()) {
+                        case 0:
+                            valor = valor + ((apartamento.getCoeficienteApartamento() / condominio.getCoeficiente()) * lancamento.getValor());
+                            break;
 
-                    case 1:
-                        valor = valor + ((1 / apartamentos.size()) * lancamento.getValor());
-                        break;
+                        case 1:
+                            valor = valor + ((1 / apartamentos.size()) * lancamento.getValor());
+                            break;
+                    }
+
                 }
                 idCond = apartamento.getIdCond();
                 idBloco = apartamento.getIdBloco();
                 idApart = apartamento.getIdApart();
-                referencia = lancamento.getReferencia();
-
+                referencia = lancamentos.get(0).getReferencia();// todos os lançamentos vão vir com a mesma referência, então eu pego a referência do primeiro.
+                // rateio de leitura
+                
+                
+                // salvar..
+                dao.adicionar(this);
             }
-            // método salvar..
-            dao.adicionar(this);
         }
     }
 
