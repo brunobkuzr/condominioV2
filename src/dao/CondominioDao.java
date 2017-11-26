@@ -124,7 +124,7 @@ public class CondominioDao {
         }
     }
 
-    public List<Condominio> listar() {
+    public ArrayList<Condominio> listar() {
         Connection conn;
         conn = null;
         PreparedStatement pstm;
@@ -140,7 +140,14 @@ public class CondominioDao {
                 Condominio c = new Condominio();
                 c.setId(rs.getInt("idCondominio"));
                 c.setNome(rs.getString("nomeCondominio"));
+                c.setTelefone(rs.getString("telefone"));
+                c.setEmail(rs.getString("email"));
                 c.setCoeficiente(rs.getFloat("coeficiente"));
+                c.setLogradouro(rs.getInt("logradouro"));
+                c.setEndereco(rs.getString("endereco"));
+                c.setBairro(rs.getString("bairro"));
+                c.setNumero(rs.getString("numero"));
+                c.setComplemento(rs.getString("complemento"));
                 condominios.add(c);
             }
             Conectar.fechaConexao(conn, pstm, rs);

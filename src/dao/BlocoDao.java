@@ -22,18 +22,12 @@ import model.Bloco;
 public class BlocoDao {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private final String INSERT = "INSERT INTO tbBloco(tbCondominio_idCondominio, idBloco,"
-            + "nomeBloco, logradouro, endereco, bairro,"
-            + "numero, complemento)"
-            + "VALUES (?,?,?,?,?,?,?,?)";
+            + "nomeBloco)"
+            + "VALUES (?,?,?)";
     private final String UPDATE = "UPDATE tbBloco SET "
             + "nomeBloco = ?,"
-            + "logadouro = ?,"
-            + "endereco = ?,"
-            + "bairro = ?,"
-            + "numero = ?,"
-            + "complemento = ? "
             + "WHERE (tbCondominio_idCondominio = ?) and (idBloco = ?) ";
-    private final String LIST = "SELECT * FROM tbBloco where tbCondominio_idCondominio = ?";
+    private final String LIST = "SELECT * FROM tbBloco";
     private final String DELETE = "DELETE FROM tbBloco WHERE (tbCondominio_idCondominio = ?) and (idBloco = ?)";
     private final String FindKey = "SELECT * from tbBloco WHERE (tbCondominio_idCondominio = ?) and (idBloco = ?) ";
 
@@ -49,12 +43,6 @@ public class BlocoDao {
                 pstm.setInt(1, blo.getIdCondominio());
                 pstm.setInt(2, blo.getIdBloco());
                 pstm.setString(3, blo.getNome());
-                pstm.setInt(4, blo.getLogradouro());
-                pstm.setString( 5, blo.getEndereco());
-                pstm.setString(6, blo.getBairro());
-                pstm.setString(7, blo.getNumero());
-                pstm.setString(8, blo.getComplemento());
-
                 pstm.execute();
                 JOptionPane.showMessageDialog(null, "Bloco cadastrado com sucesso");
                 Conectar.fechaConexao(conn, pstm);
@@ -78,13 +66,8 @@ public class BlocoDao {
                 pstm = conn.prepareStatement(UPDATE);
                 
                 pstm.setString(1, blo.getNome());
-                pstm.setInt(2, blo.getLogradouro());
-                pstm.setString(3, blo.getEndereco());
-                pstm.setString(4, blo.getBairro());
-                pstm.setString(5, blo.getNumero());
-                pstm.setString(6, blo.getComplemento());
-                pstm.setInt(7, blo.getIdCondominio());
-                pstm.setInt(8, blo.getIdBloco());
+                pstm.setInt(2, blo.getIdCondominio());
+                pstm.setInt(3, blo.getIdBloco());
                 pstm.execute();
                 JOptionPane.showMessageDialog(null, "Bloco alterado com sucesso");
                 Conectar.fechaConexao(conn);
@@ -117,7 +100,7 @@ public class BlocoDao {
         }
     }
 
-    public List<Bloco> listar() {
+    public ArrayList<Bloco> listar() {
         Connection conn;
         conn = null;
         PreparedStatement pstm;
@@ -127,7 +110,7 @@ public class BlocoDao {
         ArrayList<Bloco> blocos = new ArrayList<Bloco>();
         try {
             conn = Conectar.getConexao();
-            pstm = conn.prepareStatement(LIST);
+            pstm = conn.prepareStatement(LIST);            
             rs = pstm.executeQuery();
             while (rs.next()) {
                 Bloco b = new Bloco();

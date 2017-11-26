@@ -120,29 +120,20 @@ public class Condominio {
         this.complemento = complemento;
     }
     
-    public boolean salvar(Condominio cond){
+    public void salvar(){
         CondominioDao dao = new CondominioDao();
-        boolean cadastrado = false;
-        if (cond != null) {
-            dao.adicionar(cond);
-            cadastrado = true;
-        }
-        return cadastrado;
+        dao.adicionar(this);
     }
     
     public List<Condominio> listar(){
         CondominioDao dao = new CondominioDao();
         return dao.listar();
     }
-        public boolean atualizar(Condominio c){
+    
+    public void atualizar(){
         CondominioDao dao = new CondominioDao();
-        boolean atualizado = false;
-        if (c != null) {
-            dao.atualizar(c);
-            atualizado = true;
-        }
+            dao.atualizar(this);
         
-        return atualizado;
     }
     
     public boolean FindKey(int cod){

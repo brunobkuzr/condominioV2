@@ -5,6 +5,8 @@
  */
 package view;
 
+import dao.CondominioDao;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -108,7 +110,7 @@ public class CadastroCondominio extends javax.swing.JDialog {
 
         lbNome.setText("nome");
 
-        cbLogradouro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbLogradouro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aeroporto", "Alameda", "Área", "Avenida", "Campo", "Chácara", "Colônia", "Condomínio", "Conjunto", "Distrito", "Esplanada", "Estação", "Estrada", "Favela", "Feira", "Jardim", "Ladeira", "Lago", "Lagoa", "Largo", "Loteamento", "Morro", "Núcleo", "Parque", "Passarela", "Pátio", "Praça", "Quadra", "Recanto", "Residencial", "Rodovia", "Rua", "Setor", "Sítio", "Travessa", "Trecho", "Trevo", "Vale", "Vereda", "Via", "Viaduto", "Viela", "Vila" }));
 
         jTableCondominio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -278,9 +280,9 @@ public class CadastroCondominio extends javax.swing.JDialog {
         con.setNumero(edNumero.getText());
         con.setTelefone(edTelefone.getText());
         if (con.FindKey(Integer.parseInt(edId.getText()))) {
-            con.atualizar(con);
+            con.atualizar();
         }else{
-            con.salvar(con);
+            con.salvar();
         }
         
         carregaTabela();
@@ -291,10 +293,7 @@ public class CadastroCondominio extends javax.swing.JDialog {
     private void jTableCondominioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCondominioMouseClicked
         try {
             int linhaSelecionada = this.jTableCondominio.getSelectedRow();
-            edId.setText(this.jTableCondominio.getValueAt(linhaSelecionada, 0).toString());
-            edNome.setText(this.jTableCondominio.getValueAt(linhaSelecionada, 1).toString());
-            edCoeficiente.setText(this.jTableCondominio.getValueAt(linhaSelecionada, 2).toString());
-
+            pCarregaEdits(Integer.parseInt(this.jTableCondominio.getValueAt(linhaSelecionada, 0).toString()));
             // jButtonProdAdd.setEnabled(false);
         } catch (Exception ex) {
             Logger.getLogger(CadastroCondominio.class.getName()).log(Level.SEVERE, null, ex);
@@ -410,4 +409,27 @@ public class CadastroCondominio extends javax.swing.JDialog {
         
         
 }
+    private void pCarregaEdits(int codCon){
+        CondominioDao dao = new CondominioDao();
+        ArrayList<Condominio> con = new ArrayList();
+        con = dao.listar();
+        
+        for (Condominio condominio : con) {
+            if (condominio.getId() == codCon) {
+                edId.setText(String.valueOf(condominio.getId()));
+                edNome.setText(condominio.getNome());
+                edTelefone.setText(condominio.getTelefone());
+                edEmail.setText(condominio.getEmail());
+                edCoeficiente.setText(String.valueOf(condominio.getCoeficiente()));
+                cbLogradouro.setSelectedIndex(condominio.getLogradouro());
+                edEndereco.setText(condominio.getEndereco());
+                edBairro.setText(condominio.getBairro());
+                edNumero.setText(condominio.getNumero());
+                edComplemento.setText(condominio.getComplemento());
+                break;
+            }
+        }
+                
+    }
+    
 }
