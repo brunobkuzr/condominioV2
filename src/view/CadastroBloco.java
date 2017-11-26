@@ -8,6 +8,7 @@ package view;
 import dao.BlocoDao;
 import dao.CondominioDao;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Bloco;
 import model.Condominio;
@@ -149,14 +150,42 @@ public class CadastroBloco extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Bloco bloco = new Bloco();
         BlocoDao dao = new BlocoDao();
-        bloco.setIdCondominio(Integer.parseInt(edIdCond.getText()));
-        bloco.setIdBloco(Integer.parseInt(edIdBloco.getText()));
+        int contExcecao = 0;
+        if (edIdCond.getText() == null || edIdCond.getText().isEmpty()) {
+            contExcecao++;
+            try {
+                throw new Exception("ID do condomínio inválido!");
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                contExcecao++;
+            }
+        } else {
+            bloco.setIdCondominio(Integer.parseInt(edIdCond.getText()));
+        }
+        if (edIdBloco.getText() == null || edIdBloco.getText().isEmpty()) {
+            contExcecao++;
+            try {
+                throw new Exception("ID do bloco inválido!");
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                contExcecao++;
+            }
+        } else {
+            bloco.setIdBloco(Integer.parseInt(edIdBloco.getText()));
+        }
+
         bloco.setNome(edNome.getText());
 
         if (dao.FindKey(Integer.parseInt(edIdCond.getText()), Integer.parseInt(edIdBloco.getText()))) {
             dao.atualizar(bloco);
         } else {
-            dao.adicionar(bloco);
+            if (contExcecao > 0) {
+
+            } else {
+                dao.adicionar(bloco);
+            }
         }
         carregaTabela();
     }//GEN-LAST:event_jButton1ActionPerformed

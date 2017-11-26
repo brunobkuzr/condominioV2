@@ -22,7 +22,7 @@ public class CadastroCondominio extends javax.swing.JDialog {
 
     Condominio con = new Condominio();
     List<Condominio> listaCondominios = con.listar();
-    
+
     /**
      * Creates new form CondCad
      *
@@ -57,10 +57,9 @@ public class CadastroCondominio extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         edNome = new javax.swing.JTextField();
         lbNome = new javax.swing.JLabel();
-        edTelefone = new javax.swing.JTextField();
         edEmail = new javax.swing.JTextField();
         edCoeficiente = new javax.swing.JTextField();
-        cbLogradouro = new javax.swing.JComboBox<>();
+        cbLogradouro = new javax.swing.JComboBox<String>();
         edEndereco = new javax.swing.JTextField();
         edBairro = new javax.swing.JTextField();
         edNumero = new javax.swing.JTextField();
@@ -70,6 +69,7 @@ public class CadastroCondominio extends javax.swing.JDialog {
         jTableCondominio = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        edTelefone = new javax.swing.JFormattedTextField();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -110,7 +110,7 @@ public class CadastroCondominio extends javax.swing.JDialog {
 
         lbNome.setText("nome");
 
-        cbLogradouro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aeroporto", "Alameda", "Área", "Avenida", "Campo", "Chácara", "Colônia", "Condomínio", "Conjunto", "Distrito", "Esplanada", "Estação", "Estrada", "Favela", "Feira", "Jardim", "Ladeira", "Lago", "Lagoa", "Largo", "Loteamento", "Morro", "Núcleo", "Parque", "Passarela", "Pátio", "Praça", "Quadra", "Recanto", "Residencial", "Rodovia", "Rua", "Setor", "Sítio", "Travessa", "Trecho", "Trevo", "Vale", "Vereda", "Via", "Viaduto", "Viela", "Vila" }));
+        cbLogradouro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aeroporto", "Alameda", "Área", "Avenida", "Campo", "Chácara", "Colônia", "Condomínio", "Conjunto", "Distrito", "Esplanada", "Estação", "Estrada", "Favela", "Feira", "Jardim", "Ladeira", "Lago", "Lagoa", "Largo", "Loteamento", "Morro", "Núcleo", "Parque", "Passarela", "Pátio", "Praça", "Quadra", "Recanto", "Residencial", "Rodovia", "Rua", "Setor", "Sítio", "Travessa", "Trecho", "Trevo", "Vale", "Vereda", "Via", "Viaduto", "Viela", "Vila" }));
 
         jTableCondominio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -154,6 +154,12 @@ public class CadastroCondominio extends javax.swing.JDialog {
 
         jLabel1.setText("id");
 
+        try {
+            edTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) - ##### - ####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -179,15 +185,15 @@ public class CadastroCondominio extends javax.swing.JDialog {
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel2))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(edTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(edEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(edCoeficiente, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(edEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                                .addComponent(edCoeficiente, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
                                 .addComponent(cbLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(edEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(edBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(edNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(edComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(edEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                                .addComponent(edBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                                .addComponent(edNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                                .addComponent(edComplemento, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                                .addComponent(edTelefone))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lbNome)
@@ -210,9 +216,9 @@ public class CadastroCondominio extends javax.swing.JDialog {
                     .addComponent(edNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(edTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(edTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(edEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,22 +275,64 @@ public class CadastroCondominio extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Condominio con = new Condominio();
+        int contExcecao = 0;
+        if (edId.getText() == null || edId.getText().isEmpty()) {
+
+            try {
+                throw new Exception("ID inválido!");
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                contExcecao++;
+            }
+        } else {
+            con.setId(Integer.parseInt(edId.getText()));
+        }
+
+        con.setBairro(edBairro.getText());
+
+        if (edCoeficiente.getText() == null || edCoeficiente.getText().isEmpty()) {
+
+            try {
+                throw new Exception("Coeficiente inválido!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                contExcecao++;
+            }
+        } else {
+            con.setCoeficiente(Float.parseFloat(edCoeficiente.getText()));
+        }
+        if ((edTelefone.getText() == null) || (edTelefone.getText().isEmpty())
+                || (edTelefone.getText().contains("A,B,C,D,E,F,G,H,F,',*,t,/,¨%,$,#,@,!"))) {
+
+            try {
+                throw new Exception("Número de telefone inválido!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                contExcecao++;
+            }
+        } else {
+            con.setTelefone(edTelefone.getText());
+        }
+
         con.setId(Integer.parseInt(edId.getText()));
         con.setBairro(edBairro.getText());
-        con.setCoeficiente(Float.parseFloat(edCoeficiente.getText()));
         con.setComplemento(edComplemento.getText());
         con.setEmail(edEmail.getText());
         con.setEndereco(edEndereco.getText());
         con.setLogradouro(cbLogradouro.getSelectedIndex());
         con.setNome(edNome.getText());
         con.setNumero(edNumero.getText());
-        con.setTelefone(edTelefone.getText());
+
         if (con.FindKey(Integer.parseInt(edId.getText()))) {
             con.atualizar();
-        }else{
-            con.salvar();
+        } else {
+            if (contExcecao > 0) {
+            } else {
+                con.salvar();
+            }
         }
-        
+
         carregaTabela();
 
 
@@ -297,17 +345,17 @@ public class CadastroCondominio extends javax.swing.JDialog {
             // jButtonProdAdd.setEnabled(false);
         } catch (Exception ex) {
             Logger.getLogger(CadastroCondominio.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }//GEN-LAST:event_jTableCondominioMouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    Condominio con = new Condominio();    
-    if (!con.FindKey(Integer.parseInt(edId.getText()))) {
-        JOptionPane.showMessageDialog(null, "O cliente " + edId.getText() + " não pode ser excluído, pois não foi cadastrado no sistema");
-    }else{
-        con.deletar(Integer.parseInt(edId.getText()));
-    }
-    carregaTabela();    
+        Condominio con = new Condominio();
+        if (!con.FindKey(Integer.parseInt(edId.getText()))) {
+            JOptionPane.showMessageDialog(null, "O cliente " + edId.getText() + " não pode ser excluído, pois não foi cadastrado no sistema");
+        } else {
+            con.deletar(Integer.parseInt(edId.getText()));
+        }
+        carregaTabela();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -369,7 +417,7 @@ public class CadastroCondominio extends javax.swing.JDialog {
     private javax.swing.JTextField edId;
     private javax.swing.JTextField edNome;
     private javax.swing.JTextField edNumero;
-    private javax.swing.JTextField edTelefone;
+    private javax.swing.JFormattedTextField edTelefone;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -387,8 +435,7 @@ public class CadastroCondominio extends javax.swing.JDialog {
     private javax.swing.JTable jTableCondominio;
     private javax.swing.JLabel lbNome;
     // End of variables declaration//GEN-END:variables
- 
-   
+
     public void carregaTabela() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) jTableCondominio.getModel();
@@ -406,14 +453,14 @@ public class CadastroCondominio extends javax.swing.JDialog {
             }
         } catch (Exception e) {
         }
-        
-        
-}
-    private void pCarregaEdits(int codCon){
+
+    }
+
+    private void pCarregaEdits(int codCon) {
         CondominioDao dao = new CondominioDao();
         ArrayList<Condominio> con = new ArrayList();
         con = dao.listar();
-        
+
         for (Condominio condominio : con) {
             if (condominio.getId() == codCon) {
                 edId.setText(String.valueOf(condominio.getId()));
@@ -429,7 +476,7 @@ public class CadastroCondominio extends javax.swing.JDialog {
                 break;
             }
         }
-                
+
     }
-    
+
 }

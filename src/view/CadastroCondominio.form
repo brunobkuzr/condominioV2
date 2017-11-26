@@ -82,15 +82,15 @@
                                   <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="edTelefone" min="-2" pref="193" max="-2" attributes="0"/>
-                                  <Component id="edEmail" min="-2" pref="193" max="-2" attributes="0"/>
-                                  <Component id="edCoeficiente" min="-2" pref="193" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="edEmail" pref="193" max="32767" attributes="0"/>
+                                  <Component id="edCoeficiente" pref="193" max="32767" attributes="0"/>
                                   <Component id="cbLogradouro" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <Component id="edEndereco" min="-2" pref="193" max="-2" attributes="0"/>
-                                  <Component id="edBairro" min="-2" pref="193" max="-2" attributes="0"/>
-                                  <Component id="edNumero" min="-2" pref="193" max="-2" attributes="0"/>
-                                  <Component id="edComplemento" min="-2" pref="193" max="-2" attributes="0"/>
+                                  <Component id="edEndereco" pref="193" max="32767" attributes="0"/>
+                                  <Component id="edBairro" pref="193" max="32767" attributes="0"/>
+                                  <Component id="edNumero" pref="193" max="32767" attributes="0"/>
+                                  <Component id="edComplemento" pref="193" max="32767" attributes="0"/>
+                                  <Component id="edTelefone" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -124,9 +124,9 @@
                       <Component id="lbNome" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="edTelefone" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="edTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
@@ -230,8 +230,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="nome"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="edTelefone">
         </Component>
         <Component class="javax.swing.JTextField" name="edEmail">
         </Component>
@@ -357,6 +355,13 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="text" type="java.lang.String" value="id"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="edTelefone">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="(##) - ##### - ####" subtype="-1" type="5"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
