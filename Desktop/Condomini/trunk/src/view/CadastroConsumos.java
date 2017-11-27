@@ -25,7 +25,7 @@ public class CadastroConsumos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-
+    int i = 0;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -421,6 +421,7 @@ public class CadastroConsumos extends javax.swing.JDialog {
                     gas.setData03((Date) formato.parse(edDat03.getText()));
                 } catch (ParseException ex) {
                     Logger.getLogger(CadastroConsumos.class.getName()).log(Level.SEVERE, null, ex);
+                    
                 }
             }
         }
