@@ -11,6 +11,7 @@ import dao.GasDao;
 import dao.ParametroLeituraDao;
 import dao.RateioDao;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -71,27 +72,44 @@ public class Rateio {
 
         RateioDao dao = new RateioDao();
         for (Apartamento apartamento : apartamentos) {
+            System.out.println(apartamentos.size() + "");
+            System.out.println(apartamento.getBairroProprietario());
+            System.out.println(apartamento.getCoeficienteApartamento());
             if (lancamentos.size() > 0) {
                 valor = 0;
                 //rateio de despesas
                 for (Lancamentos lancamento : lancamentos) {
+                    
                     switch (lancamento.getTipoRateio()) {
                         case 0:
-                            valor = valor + ((apartamento.getCoeficienteApartamento() / condominio.getCoeficiente()) * lancamento.getValor());
+                            valor = valor + ((apartamento.getCoeficienteApartamento()/ condominio.getCoeficiente()) * lancamento.getValor());
+                            System.out.println("coef: " + apartamento.getCoeficienteApartamento());
+                            System.out.println("coefCond: " + condominio.getCoeficiente());
+                            System.out.println("Lanc" + lancamento.getValor());
+                          
                             break;
 
                         case 1:
                             valor = valor + ((1 / apartamentos.size()) * lancamento.getValor());
+                           
+                           
+                            
                             break;
                     }
 
                 }
                 idCond = apartamento.getIdCond();
+                System.out.println(idCond);
                 idBloco = apartamento.getIdBloco();
+                System.out.println(idBloco);
                 idApart = apartamento.getIdApart();
+                System.out.println(idApart);
                 referencia = lancamentos.get(0).getReferencia();// todos os lançamentos vão vir com a mesma referência, então eu pego a referência do primeiro.
-                int mes = Integer.parseInt(referencia.substring(1, 2));
-                int ano = Integer.parseInt(referencia.substring(4, 4));
+              
+                int mes = Integer.parseInt(referencia.substring(0, 2));
+                
+                int ano = Integer.parseInt(referencia.substring(3, 7));
+                
                 // rateio de leitura
 
                 AguaDao aguDao = new AguaDao();
@@ -170,9 +188,15 @@ public class Rateio {
                         valor = valor + pl.valorRateio(3, gasDao.listar(gas).getLei10(), apartamento);
                         break;
                     case 11:
+                       
+                        
                         valor = valor + pl.valorRateio(1, aguDao.listar(agu).getLei11(), apartamento);
+                       
                         valor = valor + pl.valorRateio(2, esgDao.listar(esg).getLei11(), apartamento);
+                        
                         valor = valor + pl.valorRateio(3, gasDao.listar(gas).getLei11(), apartamento);
+                        JOptionPane.showMessageDialog(null, valor + " gas");
+                        
                         break;
                     case 12:
                         valor = valor + pl.valorRateio(1, aguDao.listar(agu).getLei12(), apartamento);
@@ -184,6 +208,7 @@ public class Rateio {
                 // salvar..
                 dao.adicionar(this);
             }
+            JOptionPane.showMessageDialog(null, "Rateio cadastrado com sucesso");
         }
     }
 

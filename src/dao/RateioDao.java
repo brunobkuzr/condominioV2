@@ -38,7 +38,7 @@ public class RateioDao {
     private final String FindKey = "SELECT * from Rateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?) ";
 
-    private final String FindRateio = "SELECT * FROM rateio WHERE tbapartamento_tbBloco_tbCondominio_idCondominio = ? and Referencia = ?";
+    private final String FindRateio = "SELECT * FROM tbrateio WHERE tbapartamento_tbBloco_tbCondominio_idCondominio = ? and Referencia = ?";
 
     public void adicionar(Rateio rat) {
 
@@ -56,7 +56,7 @@ public class RateioDao {
                 pstm.setFloat(5, rat.getValor());
 
                 pstm.execute();
-                JOptionPane.showMessageDialog(null, "Rateio cadastrado com sucesso");
+                
                 Conectar.fechaConexao(conn, pstm);
 
             } catch (SQLException e) {
@@ -165,6 +165,7 @@ public class RateioDao {
                 r.setIdCond(rs.getInt("tbapartamento_tbBloco_tbCondominio_idCondominio"));
                 r.setIdBloco(rs.getInt("tbapartamento_tbBloco_idBloco"));
                 r.setIdApart(rs.getInt("tbapartamento_idApart"));
+                
                 r.setReferencia(rs.getString("Referencia"));
                 r.setValor(rs.getFloat("Valor"));
                 rateios.add(r);

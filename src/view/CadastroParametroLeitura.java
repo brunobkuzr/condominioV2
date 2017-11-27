@@ -31,6 +31,7 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
      */
     public CadastroParametroLeitura(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        setLocationRelativeTo(null);
         initComponents();
         carregarBotoes();
 
@@ -260,6 +261,7 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

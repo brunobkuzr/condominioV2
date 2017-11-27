@@ -32,8 +32,7 @@ public class Relatorio {
 
         try {
             // local do arquivo
-            String filename = "C:/Relatorio/" + "Relatorios" + rateios.get(0).getIdCond() + ".xls";
-
+            String filename = "C:/Relatorio/" + "Relatorio_Condominio_" + rateios.get(0).getIdCond() + "_" + rateios.get(0).getReferencia() + ".xls";
             HSSFWorkbook workbook = new HSSFWorkbook();
             HSSFSheet sheet = workbook.createSheet("FirstSheet");
             HSSFCellStyle estiloCor = workbook.createCellStyle();

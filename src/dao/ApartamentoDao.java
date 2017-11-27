@@ -158,6 +158,7 @@ public class ApartamentoDao {
                 a.setIdCond(rs.getInt("tbBloco_tbCondominio_idCondominio"));
                 a.setIdBloco(rs.getInt("tbBloco_idBloco"));
                 a.setIdApart(rs.getInt("idApart"));
+                a.setCoeficienteApartamento(rs.getFloat(("coeficienteApartamento")));
                 apartamentos.add(a);
             }
             Conectar.fechaConexao(conn, pstm, rs);
