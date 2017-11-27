@@ -94,14 +94,14 @@ public class CondominioDao {
                 pstm.setString(9, con.getComplemento());
                 pstm.setInt(10, con.getId());
                 pstm.execute();
-                JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso");
+                JOptionPane.showMessageDialog(null, "Condomínio alterado com sucesso");
                 Conectar.fechaConexao(conn);
 
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar o usuário " + con.getId() + e.getMessage());
             }
         } else {
-            JOptionPane.showMessageDialog(null, "O cliente enviado por parâmetro está vazio");
+            JOptionPane.showMessageDialog(null, "O Condomínio enviado por parâmetro está vazio");
         }
     }
 
@@ -120,7 +120,7 @@ public class CondominioDao {
             Conectar.fechaConexao(conn, pstm);
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir cliente do banco de dados " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao excluir Condomínio do banco de dados " + e.getMessage());
         }
     }
 
@@ -152,7 +152,7 @@ public class CondominioDao {
             }
             Conectar.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao listar clientes" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao listar Condomínios" + e.getMessage());
         }
         return condominios;
     }
@@ -181,7 +181,7 @@ public class CondominioDao {
             }
             Conectar.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao listar clientes" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao listar Condomínios" + e.getMessage());
         }
         return cond;
     }
@@ -207,7 +207,7 @@ public class CondominioDao {
             }
             Conectar.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao listar clientes" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao listar Condomínios" + e.getMessage());
         }
         return achouChave;
     }

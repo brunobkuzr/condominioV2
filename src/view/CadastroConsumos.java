@@ -5,6 +5,23 @@
  */
 package view;
 
+import dao.AguaDao;
+import dao.ApartamentoDao;
+import dao.BlocoDao;
+import dao.CondominioDao;
+import dao.EsgotoDao;
+import dao.GasDao;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import model.Agua;
+import model.Condominio;
+import model.Esgoto;
+import model.Gas;
+
 /**
  *
  * @author lucasreinert
@@ -18,6 +35,7 @@ public class CadastroConsumos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
+    int i = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,12 +59,6 @@ public class CadastroConsumos extends javax.swing.JDialog {
         edCon06 = new javax.swing.JTextField();
         edCon05 = new javax.swing.JTextField();
         edCon04 = new javax.swing.JTextField();
-        edDat06 = new javax.swing.JTextField();
-        edDat05 = new javax.swing.JTextField();
-        edDat04 = new javax.swing.JTextField();
-        edDat01 = new javax.swing.JTextField();
-        edDat02 = new javax.swing.JTextField();
-        edDat03 = new javax.swing.JTextField();
         edCon12 = new javax.swing.JTextField();
         edCon11 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -59,15 +71,7 @@ public class CadastroConsumos extends javax.swing.JDialog {
         edCon07 = new javax.swing.JTextField();
         edCon08 = new javax.swing.JTextField();
         edCon09 = new javax.swing.JTextField();
-        edDat12 = new javax.swing.JTextField();
-        edDat11 = new javax.swing.JTextField();
-        edDat10 = new javax.swing.JTextField();
-        edDat07 = new javax.swing.JTextField();
-        edDat08 = new javax.swing.JTextField();
-        edDat09 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -121,10 +125,6 @@ public class CadastroConsumos extends javax.swing.JDialog {
 
         jLabel7.setText("Consumo");
 
-        jLabel8.setText("Data");
-
-        jLabel9.setText("Data");
-
         jLabel10.setText("Consumo");
 
         jLabel11.setText("Condomínio");
@@ -135,9 +135,20 @@ public class CadastroConsumos extends javax.swing.JDialog {
 
         jLabel20.setText("Tipo de consumo");
 
-        cbTipoConsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gas", "Água", "Energia elétrica" }));
+        cbTipoConsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Água", "Esgoto", "Gás" }));
+        cbTipoConsumo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoConsumoActionPerformed(evt);
+            }
+        });
 
         jLabel21.setText("Ano");
+
+        edAno.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                edAnoFocusLost(evt);
+            }
+        });
 
         jButton1.setText("Salvar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -153,71 +164,54 @@ public class CadastroConsumos extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(edCon04, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                            .addComponent(edCon05)
-                            .addComponent(edCon06)
-                            .addComponent(edCon03, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(edCon02, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
-                                .addComponent(edCon01, javax.swing.GroupLayout.Alignment.TRAILING)))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(edDat02)
-                        .addComponent(edDat01)
-                        .addComponent(edDat03)
-                        .addComponent(edDat04)
-                        .addComponent(edDat05, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(edDat06, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(edCon12)
-                            .addComponent(edCon11)
-                            .addComponent(edCon10)
-                            .addComponent(edCon07)
-                            .addComponent(edCon08)
-                            .addComponent(edCon09, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(edDat07)
-                            .addComponent(edDat08, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                            .addComponent(edDat09)
-                            .addComponent(edDat10)
-                            .addComponent(edDat11)
-                            .addComponent(edDat12)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(edCon04, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                                    .addComponent(edCon05)
+                                    .addComponent(edCon06)
+                                    .addComponent(edCon03, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(edCon02, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                                        .addComponent(edCon01, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(edCon12)
+                                        .addComponent(edCon11)
+                                        .addComponent(edCon10)
+                                        .addComponent(edCon07)
+                                        .addComponent(edCon08)
+                                        .addComponent(edCon09, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
+                                    .addComponent(jLabel10)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jButton1)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel9)))
-                .addContainerGap(47, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -234,14 +228,8 @@ public class CadastroConsumos extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbTipoConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edAno, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(jLabel8))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(197, 197, 197)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(edAno, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(19, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,87 +253,60 @@ public class CadastroConsumos extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(jLabel9)))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(edCon01, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edDat01, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(edCon01, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(edCon02, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edDat02, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2))
                         .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(edCon03, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edDat03, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3))
                         .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(edCon04, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(edDat04, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel4))
                                 .addGap(75, 75, 75))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(edCon05, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(edDat05, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel17))
                                 .addGap(19, 19, 19)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(edCon06, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(edDat06, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel18)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
-                            .addComponent(edCon07, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edDat07, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(edCon07, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
-                            .addComponent(edCon08, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edDat08, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(edCon08, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(edCon09, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edDat09, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(edCon09, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(25, 25, 25)
-                                .addComponent(jLabel17)
-                                .addGap(22, 22, 22)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel18)
-                                    .addComponent(edCon12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(edDat12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(edCon12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(edCon10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(edDat10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel16))
                                 .addGap(19, 19, 19)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(edCon11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(edDat11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(edCon11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel2)
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel3)
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel4)
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel5)
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel6)))
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -374,8 +335,209 @@ public class CadastroConsumos extends javax.swing.JDialog {
     }//GEN-LAST:event_edCon11ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+        CondominioDao condDao = new CondominioDao();
+        if (condDao.FindKey(Integer.parseInt(edCodCon.getText()))) {
+            BlocoDao blocoDao = new BlocoDao();
+            if (blocoDao.FindKey(Integer.parseInt(edCodCon.getText()), Integer.parseInt(edCodBlo.getText()))) {
+                ApartamentoDao apDao = new ApartamentoDao();
+                if (apDao.FindKey(Integer.parseInt(edCodCon.getText()), Integer.parseInt(edCodBlo.getText()), Integer.parseInt(edCodApa.getText()))) {
+                    switch (cbTipoConsumo.getSelectedIndex()) {
+                        case 0:
+                            Agua agu = new Agua();
+                            agu.setAno(Integer.parseInt(edAno.getText()));
+                            agu.setIdCond(Integer.parseInt(edCodCon.getText()));
+                            agu.setIdApart(Integer.parseInt(edCodApa.getText()));
+                            agu.setIdBloco(Integer.parseInt(edCodBlo.getText()));
+                            if (!edCon01.getText().isEmpty()) {
+                                agu.setLei01(Float.parseFloat(edCon01.getText()));
+                            }
+                            if (!edCon02.getText().isEmpty()) {
+                                agu.setLei02(Float.parseFloat(edCon02.getText()));
+                            }
+                            if (!edCon03.getText().isEmpty()) {
+                                agu.setLei03(Float.parseFloat(edCon03.getText()));
+                            }
+                            if (!edCon04.getText().isEmpty()) {
+                                agu.setLei04(Float.parseFloat(edCon04.getText()));
+                            }
+                            if (!edCon05.getText().isEmpty()) {
+                                agu.setLei05(Float.parseFloat(edCon05.getText()));
+                            }
+                            if (!edCon06.getText().isEmpty()) {
+                                agu.setLei06(Float.parseFloat(edCon06.getText()));
+
+                            }
+                            if (!edCon07.getText().isEmpty()) {
+                                agu.setLei07(Float.parseFloat(edCon07.getText()));
+
+                            }
+                            if (!edCon08.getText().isEmpty()) {
+                                agu.setLei08(Float.parseFloat(edCon08.getText()));
+
+                            }
+                            if (!edCon09.getText().isEmpty()) {
+                                agu.setLei09(Float.parseFloat(edCon09.getText()));
+
+                            }
+                            if (!edCon10.getText().isEmpty()) {
+                                agu.setLei10(Float.parseFloat(edCon10.getText()));
+
+                            }
+                            if (!edCon11.getText().isEmpty()) {
+                                agu.setLei11(Float.parseFloat(edCon11.getText()));
+
+                            }
+                            if (!edCon12.getText().isEmpty()) {
+                                agu.setLei12(Float.parseFloat(edCon12.getText()));
+
+                            }
+                            AguaDao aguDao = new AguaDao();
+                            if (aguDao.listar(agu) == null) {
+                                aguDao.adicionar(agu);
+                            } else {
+                                aguDao.atualizar(agu);
+                            }
+                            break;
+                        case 1:
+                            Esgoto esg = new Esgoto();
+                            esg.setAno(Integer.parseInt(edAno.getText()));
+                            esg.setIdCond(Integer.parseInt(edCodCon.getText()));
+                            esg.setIdApart(Integer.parseInt(edCodApa.getText()));
+                            esg.setIdBloco(Integer.parseInt(edCodBlo.getText()));
+                            if (!edCon01.getText().isEmpty()) {
+                                esg.setLei01(Float.parseFloat(edCon01.getText()));
+
+                            }
+                            if (!edCon02.getText().isEmpty()) {
+                                esg.setLei02(Float.parseFloat(edCon02.getText()));
+
+                            }
+                            if (!edCon03.getText().isEmpty()) {
+                                esg.setLei03(Float.parseFloat(edCon03.getText()));
+
+                            }
+                            if (!edCon04.getText().isEmpty()) {
+                                esg.setLei04(Float.parseFloat(edCon04.getText()));
+
+                            }
+                            if (!edCon05.getText().isEmpty()) {
+                                esg.setLei05(Float.parseFloat(edCon05.getText()));
+
+                            }
+                            if (!edCon06.getText().isEmpty()) {
+                                esg.setLei06(Float.parseFloat(edCon06.getText()));
+
+                            }
+                            if (!edCon07.getText().isEmpty()) {
+                                esg.setLei07(Float.parseFloat(edCon07.getText()));
+
+                            }
+                            if (!edCon08.getText().isEmpty()) {
+                                esg.setLei08(Float.parseFloat(edCon08.getText()));
+
+                            }
+                            if (!edCon09.getText().isEmpty()) {
+                                esg.setLei09(Float.parseFloat(edCon09.getText()));
+
+                            }
+                            if (!edCon10.getText().isEmpty()) {
+                                esg.setLei10(Float.parseFloat(edCon10.getText()));
+
+                            }
+                            if (!edCon11.getText().isEmpty()) {
+                                esg.setLei11(Float.parseFloat(edCon11.getText()));
+
+                            }
+                            if (!edCon12.getText().isEmpty()) {
+                                esg.setLei12(Float.parseFloat(edCon12.getText()));
+
+                            }
+                            EsgotoDao esgDao = new EsgotoDao();
+                            if (esgDao.listar(esg) == null) {
+                                esgDao.adicionar(esg);
+                            } else {
+                                esgDao.atualizar(esg);
+                            }
+                            break;
+                        case 2:
+                            Gas gas = new Gas();
+                            gas.setAno(Integer.parseInt(edAno.getText()));
+                            gas.setIdCond(Integer.parseInt(edCodCon.getText()));
+                            gas.setIdApart(Integer.parseInt(edCodApa.getText()));
+                            gas.setIdBloco(Integer.parseInt(edCodBlo.getText()));
+                            if (!edCon01.getText().isEmpty()) {
+                                gas.setLei01(Float.parseFloat(edCon01.getText()));
+
+                            }
+                            if (!edCon02.getText().isEmpty()) {
+                                gas.setLei02(Float.parseFloat(edCon02.getText()));
+
+                            }
+                            if (!edCon03.getText().isEmpty()) {
+                                gas.setLei03(Float.parseFloat(edCon03.getText()));
+
+                            }
+                            if (!edCon04.getText().isEmpty()) {
+                                gas.setLei04(Float.parseFloat(edCon04.getText()));
+
+                            }
+                            if (!edCon05.getText().isEmpty()) {
+                                gas.setLei05(Float.parseFloat(edCon05.getText()));
+
+                            }
+                            if (!edCon06.getText().isEmpty()) {
+                                gas.setLei06(Float.parseFloat(edCon06.getText()));
+
+                            }
+                            if (!edCon07.getText().isEmpty()) {
+                                gas.setLei07(Float.parseFloat(edCon07.getText()));
+
+                            }
+                            if (!edCon08.getText().isEmpty()) {
+                                gas.setLei08(Float.parseFloat(edCon08.getText()));
+
+                            }
+                            if (!edCon09.getText().isEmpty()) {
+                                gas.setLei09(Float.parseFloat(edCon09.getText()));
+
+                            }
+                            if (!edCon10.getText().isEmpty()) {
+                                gas.setLei10(Float.parseFloat(edCon10.getText()));
+                            }
+                            if (!edCon11.getText().isEmpty()) {
+                                gas.setLei11(Float.parseFloat(edCon11.getText()));
+                            }
+                            if (!edCon12.getText().isEmpty()) {
+                                gas.setLei12(Float.parseFloat(edCon12.getText()));
+                            }
+                            GasDao gasDao = new GasDao();
+                            if (gasDao.listar(gas) == null) {
+                                gasDao.adicionar(gas);
+                            } else {
+                                gasDao.atualizar(gas);
+                            }
+                            break;
+                    }
+                } else {
+                    JOptionPane.showConfirmDialog(null, "Apartamento não encontrado");
+                }
+            } else {
+                JOptionPane.showConfirmDialog(null, "Bloco não encontrado");
+            }
+        } else {
+            JOptionPane.showConfirmDialog(null, "Condomínio não encontrado");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbTipoConsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoConsumoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoConsumoActionPerformed
+
+    private void edAnoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edAnoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edAnoFocusLost
 
     /**
      * @param args the command line arguments
@@ -438,18 +600,6 @@ public class CadastroConsumos extends javax.swing.JDialog {
     private javax.swing.JTextField edCon10;
     private javax.swing.JTextField edCon11;
     private javax.swing.JTextField edCon12;
-    private javax.swing.JTextField edDat01;
-    private javax.swing.JTextField edDat02;
-    private javax.swing.JTextField edDat03;
-    private javax.swing.JTextField edDat04;
-    private javax.swing.JTextField edDat05;
-    private javax.swing.JTextField edDat06;
-    private javax.swing.JTextField edDat07;
-    private javax.swing.JTextField edDat08;
-    private javax.swing.JTextField edDat09;
-    private javax.swing.JTextField edDat10;
-    private javax.swing.JTextField edDat11;
-    private javax.swing.JTextField edDat12;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -470,8 +620,6 @@ public class CadastroConsumos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

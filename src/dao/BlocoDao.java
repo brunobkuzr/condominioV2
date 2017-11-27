@@ -25,7 +25,7 @@ public class BlocoDao {
             + "nomeBloco)"
             + "VALUES (?,?,?)";
     private final String UPDATE = "UPDATE tbBloco SET "
-            + "nomeBloco = ?,"
+            + "nomeBloco = ? "
             + "WHERE (tbCondominio_idCondominio = ?) and (idBloco = ?) ";
     private final String LIST = "SELECT * FROM tbBloco";
     private final String DELETE = "DELETE FROM tbBloco WHERE (tbCondominio_idCondominio = ?) and (idBloco = ?)";

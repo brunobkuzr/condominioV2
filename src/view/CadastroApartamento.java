@@ -8,8 +8,11 @@ package view;
 import dao.ApartamentoDao;
 import dao.BlocoDao;
 import dao.CondominioDao;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Apartamento;
+import model.Bloco;
 
 /**
  *
@@ -17,12 +20,15 @@ import model.Apartamento;
  */
 public class CadastroApartamento extends javax.swing.JDialog {
 
+    ArrayList<Apartamento> listaApartamento;
+
     /**
      * Creates new form CadastraApartamento
      */
     public CadastroApartamento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        pCarregaTabela();
     }
 
     /**
@@ -132,6 +138,11 @@ public class CadastroApartamento extends javax.swing.JDialog {
         });
 
         jButton2.setText("Excluir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -141,9 +152,17 @@ public class CadastroApartamento extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Condominio", "Bloco", "Apartamento", "Coeficiente"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         jLabel15.setText("Complemento proprietário");
@@ -203,13 +222,13 @@ public class CadastroApartamento extends javax.swing.JDialog {
                                     .addComponent(edTelPro)
                                     .addComponent(edLogradPro, 0, 188, Short.MAX_VALUE)
                                     .addComponent(edBaiPro)
-                                    .addComponent(edNumero)))))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE))
-                .addGap(20, 20, 20))
+                                    .addComponent(edNumero))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(303, 303, 303))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,9 +302,7 @@ public class CadastroApartamento extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, Short.MAX_VALUE)
         );
 
         pack();
@@ -313,14 +330,13 @@ public class CadastroApartamento extends javax.swing.JDialog {
                 ap.setEnderecoProprietario(edEndPro.getText());
                 ap.setEmailProprietario(edEmlPro.getText());
                 ap.setNumeroProprietario(edNumero.getText());
-                
 
                 //Morador
                 ap.setNomeMorador(edNomMor.getText());
                 ap.setTelefoneMorador(edTelMor.getText());
                 ap.setEmailMorador(edEmlMor.getText());
                 if (ad.FindKey(Integer.parseInt(edCodCon.getText()), Integer.parseInt(edCodBlo.getText()), Integer.parseInt(edCodApa.getText()))) {
-                    ad.atualizar(ap);                    
+                    ad.atualizar(ap);
                 } else {
                     ad.adicionar(ap);
                 }
@@ -330,9 +346,16 @@ public class CadastroApartamento extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(null, "Condomínio " + edCodCon.getText() + " não encontrado.");
         }
+        pCarregaTabela();
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ApartamentoDao dao = new ApartamentoDao();
+        dao.remover(Integer.parseInt(edCodCon.getText()), Integer.parseInt(edCodBlo.getText()), Integer.parseInt(edCodApa.getText()));
+        pCarregaTabela();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -419,4 +442,24 @@ public class CadastroApartamento extends javax.swing.JDialog {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+    private void pCarregaTabela() {
+        try {
+            ApartamentoDao dao = new ApartamentoDao();
+            DefaultTableModel dtm = (DefaultTableModel) jTable2.getModel();
+            int nlinhas = this.jTable2.getRowCount();
+            listaApartamento = dao.listarCad();
+            for (int i = 0; i < nlinhas; i++) {
+                dtm.removeRow(0);
+            }
+            for (int i = 0; i < listaApartamento.size(); i++) {
+                Apartamento a = listaApartamento.get(i);
+                dtm.addRow(new String[]{
+                    String.valueOf(a.getIdCond()),
+                    String.valueOf(a.getIdBloco()),
+                    String.valueOf(a.getIdBloco()),
+                    String.valueOf(a.getCoeficienteApartamento())});
+            }
+        } catch (Exception e) {
+        }
+    }
 }

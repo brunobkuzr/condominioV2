@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.Apartamento;
 import model.Rateio;
 
 /**
@@ -30,6 +31,8 @@ public class RateioDao {
             + "WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and (tbapartamento_idApart = ?) and (Referencia = ?) ";
     private final String LIST = "SELECT * FROM Rateio where (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?)";
+    private final String LISTCAD = "SELECT * FROM Rateio where (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
+            + "(tbapartamento_idApart = ?)";
     private final String DELETE = "DELETE FROM Rateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?)";
     private final String FindKey = "SELECT * from Rateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
@@ -114,7 +117,7 @@ public class RateioDao {
         }
     }
 
-    public List<Rateio> listar() {
+    public ArrayList<Rateio> listar() {
         Connection conn;
         conn = null;
         PreparedStatement pstm;
@@ -125,6 +128,37 @@ public class RateioDao {
         try {
             conn = Conectar.getConexao();
             pstm = conn.prepareStatement(LIST);
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                Rateio r = new Rateio();
+                r.setIdCond(rs.getInt("tbapartamento_tbBloco_tbCondominio_idCondominio"));
+                r.setIdBloco(rs.getInt("tbapartamento_tbBloco_idBloco"));
+                r.setIdApart(rs.getInt("tbapartamento_idApart"));
+                r.setReferencia(rs.getString("Referencia"));
+                r.setValor(rs.getFloat("Valor"));
+                rateios.add(r);
+            }
+            Conectar.fechaConexao(conn, pstm, rs);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar clientes" + e.getMessage());
+        }
+        return rateios;
+    }
+    
+    public ArrayList<Rateio> listarCad(Apartamento ap) {
+        Connection conn;
+        conn = null;
+        PreparedStatement pstm;
+        pstm = null;
+        ResultSet rs;
+        rs = null;
+        ArrayList<Rateio> rateios = new ArrayList<Rateio>();
+        try {
+            conn = Conectar.getConexao();
+            pstm = conn.prepareStatement(LIST);
+            pstm.setInt(1, ap.getIdCond());
+            pstm.setInt(2, ap.getIdBloco());
+            pstm.setInt(3, ap.getIdApart());            
             rs = pstm.executeQuery();
             while (rs.next()) {
                 Rateio r = new Rateio();

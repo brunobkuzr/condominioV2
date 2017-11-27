@@ -5,6 +5,7 @@
  */
 package view;
 
+import dao.ParametroLeituraDao;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,10 +18,10 @@ import model.ParametroLeitura;
  * @author Bruno Fernandes
  */
 public class CadastroParametroLeitura extends javax.swing.JDialog {
-    
-   // int cond = Integer.parseInt(tfCond.getText());
+
+    // int cond = Integer.parseInt(tfCond.getText());
     ParametroLeitura par = new ParametroLeitura();
-     //   List<ParametroLeitura> listaParametros = par.listar();
+    List<ParametroLeitura> listaParametros;
 
     /**
      * Creates new form CondCad
@@ -51,19 +52,18 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
         tfCond = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        tfTxIni = new javax.swing.JTextField();
         tfTxFin = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tfValor = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabParametros = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         botaoAgua = new javax.swing.JRadioButton();
-        botaoLuz = new javax.swing.JRadioButton();
+        botaoEsgoto = new javax.swing.JRadioButton();
         botaoGas = new javax.swing.JRadioButton();
+        jButton3 = new javax.swing.JButton();
+        tfSeq = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,9 +89,13 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setText("Taxa inicial:");
-
         jLabel4.setText("  Taxa final: ");
+
+        tfTxFin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfTxFinActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Valor:");
 
@@ -103,17 +107,17 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
 
         tabParametros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Tipo", "Taxa inicial", "Taxa final", "Valor"
+                "Seq", "Tipo", "Taxa inicial", "Taxa final", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, true, true
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -121,6 +125,13 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
             }
         });
         jScrollPane2.setViewportView(tabParametros);
+        if (tabParametros.getColumnModel().getColumnCount() > 0) {
+            tabParametros.getColumnModel().getColumn(0).setResizable(false);
+            tabParametros.getColumnModel().getColumn(1).setResizable(false);
+            tabParametros.getColumnModel().getColumn(2).setResizable(false);
+            tabParametros.getColumnModel().getColumn(3).setResizable(false);
+            tabParametros.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jButton2.setText("Cadastrar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -129,8 +140,6 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
             }
         });
 
-        jLabel6.setText("Cadastro de parâmetros de leitura");
-
         botaoAgua.setText("1- Água");
         botaoAgua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,105 +147,128 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
             }
         });
 
-        botaoLuz.setText("2 - Luz");
+        botaoEsgoto.setText("2 - Esgoto");
+        botaoEsgoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEsgotoActionPerformed(evt);
+            }
+        });
 
-        botaoGas.setText("3 - Gás");
+        botaoGas.setText("3 - Gas");
+
+        jButton3.setText("Excluir Seq");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        tfSeq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfSeqActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(101, 101, 101))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 16, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(9, 9, 9)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfTxIni, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(tfValor, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-                                .addComponent(tfTxFin)))
-                        .addGap(142, 142, 142)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addGap(10, 10, 10))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5)
+                                .addGap(8, 8, 8))
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tfTxFin, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(botaoEsgoto)
+                                            .addComponent(botaoGas))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(botaoAgua)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tfSeq, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(tfCond, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(291, 291, 291)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(botaoLuz)
-                                    .addComponent(botaoAgua)
-                                    .addComponent(botaoGas))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jButton1)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addGap(6, 6, 6))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel6)
-                .addGap(30, 30, 30)
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfCond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botaoAgua)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoLuz)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(tfTxIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(botaoGas, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(tfTxFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(tfTxFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(3, 3, 3))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton3)
+                                    .addComponent(tfSeq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(47, 47, 47)))
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(botaoAgua)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoEsgoto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoGas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //carregaTabela();
+
         ParametroLeitura pl = new ParametroLeitura();
         String condominioBloqueio = tfCond.getText();
         jLabel2.setText(pl.buscarNome(Integer.parseInt(condominioBloqueio)).getNome());
+        listaParametros = par.listar(Integer.parseInt(tfCond.getText()));
+        carregaTabela();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tfValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfValorActionPerformed
@@ -244,14 +276,17 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
     }//GEN-LAST:event_tfValorActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
         ParametroLeitura param = new ParametroLeitura();
+
         param.setCondominio(Integer.parseInt(tfCond.getText()));
-        param.setTxInicial(Float.parseFloat(tfTxIni.getText()));
+
         param.setTxFinal(Float.parseFloat(tfTxFin.getText()));
+
         try {
             if (botaoGas.isSelected()) {
                 param.setTipo(3);
-            } else if (botaoLuz.isSelected()) {
+            } else if (botaoEsgoto.isSelected()) {
                 param.setTipo(2);
             } else if (botaoAgua.isSelected()) {
                 param.setTipo(1);
@@ -269,11 +304,34 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
     public void carregarBotoes() {
         buttonGroup1.add(botaoGas);
         buttonGroup1.add(botaoAgua);
-        buttonGroup1.add(botaoLuz);
+        buttonGroup1.add(botaoEsgoto);
     }
     private void botaoAguaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAguaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botaoAguaActionPerformed
+
+    private void tfTxFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTxFinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfTxFinActionPerformed
+
+    private void botaoEsgotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEsgotoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoEsgotoActionPerformed
+
+    private void tfSeqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSeqActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfSeqActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ParametroLeituraDao param = new ParametroLeituraDao();
+        if (tfSeq.getText() != "") {
+            
+            param.excluirSeq(Integer.parseInt(tfSeq.getText()));
+            carregaTabela();
+        } else {
+            JOptionPane.showMessageDialog(null, "Informe o numero da sequência.");
+    }//GEN-LAST:event_jButton3ActionPerformed
+    }
 
     /**
      * @param args the command line arguments
@@ -320,35 +378,31 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton botaoAgua;
+    private javax.swing.JRadioButton botaoEsgoto;
     private javax.swing.JRadioButton botaoGas;
-    private javax.swing.JRadioButton botaoLuz;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tabParametros;
     private javax.swing.JTextField tfCond;
+    private javax.swing.JTextField tfSeq;
     private javax.swing.JTextField tfTxFin;
-    private javax.swing.JTextField tfTxIni;
     private javax.swing.JTextField tfValor;
     // End of variables declaration//GEN-END:variables
- 
-    /**
-     * 
-     
+
     public void carregaTabela() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) tabParametros.getModel();
             int nlinhas = this.tabParametros.getRowCount();
-            listaParametros = par.listar();
+            listaParametros = par.listar(Integer.parseInt(tfCond.getText()));
             for (int i = 0; i < nlinhas; i++) {
                 dtm.removeRow(0);
             }
@@ -358,15 +412,11 @@ public class CadastroParametroLeitura extends javax.swing.JDialog {
                     String.valueOf(p.getSeq()),
                     String.valueOf(p.getTipo()),
                     String.valueOf(p.getTxInicial()),
-                    String.valueOf(p.getTxInicial()),
-                   
-                   String.valueOf(p.getValor())});
+                    String.valueOf(p.getTxFinal()),
+                    String.valueOf(p.getValor())});
             }
         } catch (Exception e) {
         }
-        
-        
-}
-*/
-}
 
+    }
+}

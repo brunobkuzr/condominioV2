@@ -27,9 +27,8 @@ public class LancamentosDao {
             + "Valor, TipoRateio)"
             + "VALUES (?,?,?,?,?)";
     private final String UPDATE = "UPDATE tbLancDesp SET "
-            + "Referencia = ?,"
             + "Valor = ?,"
-            + "TipoRateio = ?"
+            + "TipoRateio = ? "
             + "WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?)";
     private final String LIST = "SELECT * FROM tbLancDesp where (tbcondominio_idCondominio = ?) and (Referencia = ?)";
     private final String DELETE = "DELETE FROM tbLancDesp WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?)";
@@ -70,8 +69,12 @@ public class LancamentosDao {
             try {
                 conn = Conectar.getConexao();
                 PreparedStatement pstm;
-                pstm = conn.prepareStatement(UPDATE);
-
+                pstm = conn.prepareStatement(UPDATE);                
+                pstm.setFloat(1, lanc.getValor());
+                pstm.setInt(2, lanc.getTipoRateio());
+                pstm.setInt(3, lanc.getIdCond());
+                pstm.setInt(4, lanc.getIdDesp());
+                pstm.setString(5, lanc.getReferencia());
                 pstm.execute();
                 JOptionPane.showMessageDialog(null, "Lançamento alterado com sucesso");
                 Conectar.fechaConexao(conn);
