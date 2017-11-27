@@ -36,8 +36,7 @@ public class EscritorioDao {
             + "endereco = ?,"
             + "bairro = ?,"
             + "numero = ?, "
-            + "complemento";
-          //  + "WHERE Codigo_Cliente = ?";
+            + "complemento = ?";
     private final String LIST = "SELECT *FROM tbEscritorio";
     private final String EXISTS = "SELECT Count (*) from tbEscritorio";
 //    private final String DELETE = "DELETE FROM tbEscritorio WHERE idCondominio =?";
@@ -95,6 +94,7 @@ public class EscritorioDao {
                 Conectar.fechaConexao(conn);
 
             } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao atualizar escritório");
             }
         } else {
             JOptionPane.showMessageDialog(null, "O escritório enviado por parâmetro está vazio");
@@ -121,48 +121,33 @@ public class EscritorioDao {
         return existeCadastro;
     } 
 
-//    public void remover(int cod) {
-//
-//        Connection conn;
-//        conn = null;
-//        try {
-//            conn = Conectar.getConexao();
-//            PreparedStatement pstm;
-//            pstm = conn.prepareStatement(DELETE);
-//
-//            pstm.setInt(1, cod);
-//
-//            pstm.execute();
-//            Conectar.fechaConexao(conn, pstm);
-//
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, "Erro ao excluir cliente do banco de dados " + e.getMessage());
-//        }
-//    }
 
-//    public List<Condominio> listar() {
-//        Connection conn;
-//        conn = null;
-//        PreparedStatement pstm;
-//        pstm = null;
-//        ResultSet rs;
-//        rs = null;
-//        ArrayList<Condominio> condominios = new ArrayList<Condominio>();
-//        try {
-//            conn = Conectar.getConexao();
-//            pstm = conn.prepareStatement(LIST);
-//            rs = pstm.executeQuery();
-//            while (rs.next()) {
-//                Condominio c = new Condominio();
-//                c.setId(rs.getInt("idCondominio"));
-//                c.setNome(rs.getString("nomeCondominio"));
-//                c.setCoeficiente(rs.getFloat("coeficiente"));
-//                condominios.add(c);
-//            }
-//            Conectar.fechaConexao(conn, pstm, rs);
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, "Erro ao listar clientes" + e.getMessage());
-//        }
-//        return condominios;
-//    }
+    public Escritorio listar() {
+        Connection conn;
+        conn = null;
+        PreparedStatement pstm;
+        pstm = null;
+        ResultSet rs;
+        rs = null;
+        Escritorio esc = new Escritorio();
+        try {
+            conn = Conectar.getConexao();
+            pstm = conn.prepareStatement(LIST);
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                esc.setNome(rs.getString("nome"));
+                esc.setTelefone(rs.getString("telefone"));
+                esc.setEmail(rs.getString("email"));
+                esc.setLogradouro(rs.getInt("logradouro"));
+                esc.setEndereco(rs.getString("endereco"));
+                esc.setBairro(rs.getString("bairro"));
+                esc.setNumero(rs.getString("numero"));
+                esc.setComplemento(rs.getString("complemento"));
+            }
+            Conectar.fechaConexao(conn, pstm, rs);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar clientes" + e.getMessage());
+        }
+        return esc;
+    }
 }

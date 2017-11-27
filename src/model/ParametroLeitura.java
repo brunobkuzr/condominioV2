@@ -8,6 +8,7 @@ package model;
 import dao.CondominioDao;
 import dao.ParametroLeituraDao;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -88,6 +89,7 @@ public class ParametroLeitura {
         if (param != null) {
             dao.adicionar(param);
             cadastrado = true;
+           
         }
         return cadastrado;
     }

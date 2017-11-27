@@ -38,9 +38,10 @@ public class ApartamentoDao {
             + "nomeMorador = ?,"
             + "telefoneMorador = ?,"
             + "emailMorador = ?,"
-            + "coeficienteApartamento = ?"
+            + "coeficienteApartamento = ? "
             + "WHERE (tbBloco_tbCondominio_idCondominio = ?) and (tbBloco_idBloco = ?) and (idApart = ?) ";
     private final String LIST = "SELECT * FROM tbApartamento where (tbBloco_tbCondominio_idCondominio = ?)";
+    private final String LISTCAD = "SELECT * FROM tbApartamento";
     private final String DELETE = "DELETE FROM tbApartamento WHERE (tbBloco_tbCondominio_idCondominio = ?) and (tbBloco_idBloco = ?) and (idApart = ?)";
     private final String FindKey = "SELECT * from tbApartamento WHERE (tbBloco_tbCondominio_idCondominio = ?) and (tbBloco_idBloco = ?) and (idApart = ?) ";
 
@@ -92,19 +93,20 @@ public class ApartamentoDao {
                 pstm = conn.prepareStatement(UPDATE);
                 
                 pstm.setString(1, apa.getNomeProprietario());
-                pstm.setString(2, apa.getTelefoneProprietario());
-                pstm.setString(3, apa.getLogradouroProprietario());
-                pstm.setString(4, apa.getEnderecoProprietario());
-                pstm.setString(5, apa.getBairroProprietario());
-                pstm.setString(6, apa.getNumeroProprietario());
-                pstm.setString(7, apa.getComplementoProprietario());
-                pstm.setString(8, apa.getNomeMorador());
-                pstm.setString(9, apa.getTelefoneMorador());
-                pstm.setString(10, apa.getEmailMorador());
-                pstm.setFloat(11, apa.getCoeficienteApartamento());
-                pstm.setInt(12, apa.getIdCond());
-                pstm.setInt(13, apa.getIdBloco());
-                pstm.setInt(14, apa.getIdBloco());                
+                pstm.setString( 2, apa.getTelefoneProprietario());
+                pstm.setString(3, apa.getEmailProprietario());
+                pstm.setString(4, apa.getLogradouroProprietario());
+                pstm.setString(5, apa.getEnderecoProprietario());                
+                pstm.setString(6, apa.getBairroProprietario());
+                pstm.setString(7, apa.getNumeroProprietario());
+                pstm.setString(8, apa.getComplementoProprietario());
+                pstm.setString(9, apa.getNomeMorador());
+                pstm.setString(10, apa.getTelefoneMorador());
+                pstm.setString(11, apa.getEmailMorador());
+                pstm.setFloat(12, apa.getCoeficienteApartamento());
+                pstm.setInt(13, apa.getIdCond());
+                pstm.setInt(14, apa.getIdBloco());
+                pstm.setInt(15, apa.getIdApart());                
                 pstm.execute();
                 JOptionPane.showMessageDialog(null, "Apartamento alterado com sucesso");
                 Conectar.fechaConexao(conn);
@@ -156,11 +158,38 @@ public class ApartamentoDao {
                 a.setIdCond(rs.getInt("tbBloco_tbCondominio_idCondominio"));
                 a.setIdBloco(rs.getInt("tbBloco_idBloco"));
                 a.setIdApart(rs.getInt("idApart"));
+                a.setCoeficienteApartamento(rs.getFloat(("coeficienteApartamento")));
                 apartamentos.add(a);
             }
             Conectar.fechaConexao(conn, pstm, rs);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao listar clientes" + e.getMessage());
+        }
+        return apartamentos;
+    }
+    public ArrayList<Apartamento> listarCad() {
+        Connection conn;
+        conn = null;
+        PreparedStatement pstm;
+        pstm = null;
+        ResultSet rs;
+        rs = null;
+        ArrayList<Apartamento> apartamentos = new ArrayList<>();
+        try {
+            conn = Conectar.getConexao();
+            pstm = conn.prepareStatement(LISTCAD);
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                Apartamento a = new Apartamento();
+                a.setIdCond(rs.getInt("tbBloco_tbCondominio_idCondominio"));
+                a.setIdBloco(rs.getInt("tbBloco_idBloco"));
+                a.setIdApart(rs.getInt("idApart"));
+                a.setCoeficienteApartamento(rs.getInt("coeficienteApartamento"));
+                apartamentos.add(a);
+            }
+            Conectar.fechaConexao(conn, pstm, rs);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar apartamento" + e.getMessage());
         }
         return apartamentos;
     }

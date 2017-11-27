@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.Apartamento;
 import model.Rateio;
 
 /**
@@ -20,19 +21,24 @@ import model.Rateio;
  * @author Lucas_Reinert
  */
 public class RateioDao {
+
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private final String INSERT = "INSERT INTO tbRateio(tbapartamento_tbBloco_tbCondominio_idCondominio, tbapartamento_tbBloco_idBloco,"
             + "tbapartamento_idApart, Referencia, Valor)"
             + "VALUES (?,?,?,?,?)";
-    private final String UPDATE = "UPDATE tbRateio SET "
+    private final String UPDATE = "UPDATE Rateio SET "
             + "Valor = ?"
             + "WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and (tbapartamento_idApart = ?) and (Referencia = ?) ";
-    private final String LIST = "SELECT * FROM tbRateio where (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
+    private final String LIST = "SELECT * FROM Rateio where (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?)";
-    private final String DELETE = "DELETE FROM tbRateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
+    private final String LISTCAD = "SELECT * FROM Rateio where (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
+            + "(tbapartamento_idApart = ?)";
+    private final String DELETE = "DELETE FROM Rateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?)";
-    private final String FindKey = "SELECT * from tbRateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
+    private final String FindKey = "SELECT * from Rateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?) ";
+
+    private final String FindRateio = "SELECT * FROM tbrateio WHERE tbapartamento_tbBloco_tbCondominio_idCondominio = ? and Referencia = ?";
 
     public void adicionar(Rateio rat) {
 
@@ -47,10 +53,10 @@ public class RateioDao {
                 pstm.setInt(2, rat.getIdBloco());
                 pstm.setInt(3, rat.getIdApart());
                 pstm.setString(4, rat.getReferencia());
-                pstm.setFloat( 5, rat.getValor());
+                pstm.setFloat(5, rat.getValor());
 
                 pstm.execute();
-                JOptionPane.showMessageDialog(null, "Rateio cadastrado com sucesso");
+                
                 Conectar.fechaConexao(conn, pstm);
 
             } catch (SQLException e) {
@@ -70,8 +76,8 @@ public class RateioDao {
                 conn = Conectar.getConexao();
                 PreparedStatement pstm;
                 pstm = conn.prepareStatement(UPDATE);
-                
-                pstm.setFloat( 1, rat.getValor());
+
+                pstm.setFloat(1, rat.getValor());
                 pstm.setInt(2, rat.getIdCond());
                 pstm.setInt(3, rat.getIdBloco());
                 pstm.setInt(4, rat.getIdApart());
@@ -81,12 +87,14 @@ public class RateioDao {
                 Conectar.fechaConexao(conn);
 
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar o rateio bloco: " + rat.getIdBloco() + " apartamento: " +rat.getIdApart() + " "+ e.getMessage());
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar o rateio bloco: " + rat.getIdBloco() + " apartamento: " + rat.getIdApart() + " " + e.getMessage());
             }
         } else {
             JOptionPane.showMessageDialog(null, "O rateio enviado por parâmetro está vazio");
         }
-    };
+    }
+
+    ;
 
     public void remover(int codCond, int codBlo, int codApa, String referencia) {
 
@@ -100,7 +108,7 @@ public class RateioDao {
             pstm.setInt(2, codBlo);
             pstm.setInt(3, codApa);
             pstm.setString(4, referencia);
-            
+
             pstm.execute();
             Conectar.fechaConexao(conn, pstm);
 
@@ -109,7 +117,7 @@ public class RateioDao {
         }
     }
 
-    public List<Rateio> listar() {
+    public ArrayList<Rateio> listar() {
         Connection conn;
         conn = null;
         PreparedStatement pstm;
@@ -136,7 +144,71 @@ public class RateioDao {
         }
         return rateios;
     }
-    public boolean FindKey(int codCond, int codBlo){
+    
+    public ArrayList<Rateio> listarCad(Apartamento ap) {
+        Connection conn;
+        conn = null;
+        PreparedStatement pstm;
+        pstm = null;
+        ResultSet rs;
+        rs = null;
+        ArrayList<Rateio> rateios = new ArrayList<Rateio>();
+        try {
+            conn = Conectar.getConexao();
+            pstm = conn.prepareStatement(LIST);
+            pstm.setInt(1, ap.getIdCond());
+            pstm.setInt(2, ap.getIdBloco());
+            pstm.setInt(3, ap.getIdApart());            
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                Rateio r = new Rateio();
+                r.setIdCond(rs.getInt("tbapartamento_tbBloco_tbCondominio_idCondominio"));
+                r.setIdBloco(rs.getInt("tbapartamento_tbBloco_idBloco"));
+                r.setIdApart(rs.getInt("tbapartamento_idApart"));
+                
+                r.setReferencia(rs.getString("Referencia"));
+                r.setValor(rs.getFloat("Valor"));
+                rateios.add(r);
+            }
+            Conectar.fechaConexao(conn, pstm, rs);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar clientes" + e.getMessage());
+        }
+        return rateios;
+    }
+
+    public ArrayList<Rateio> gerarRelatorio(int cond, String data) {
+        ArrayList<Rateio> rateios = new ArrayList<Rateio>();
+        Connection conn;
+        conn = null;
+        PreparedStatement pstm;
+        pstm = null;
+        ResultSet rs;
+        rs = null;
+        
+        try {
+            conn = Conectar.getConexao();
+            pstm = conn.prepareStatement(FindRateio);
+            pstm.setInt(1, cond);
+            pstm.setString(2, data);
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                Rateio r = new Rateio();
+                r.setIdCond(rs.getInt("tbapartamento_tbBloco_tbCondominio_idCondominio"));
+                r.setIdBloco(rs.getInt("tbapartamento_tbBloco_idBloco"));
+                r.setIdApart(rs.getInt("tbapartamento_idApart"));
+                r.setReferencia(rs.getString("Referencia"));
+                r.setValor(rs.getFloat("Valor"));
+                rateios.add(r);
+            }
+            Conectar.fechaConexao(conn, pstm, rs);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar rateios" + e.getMessage());
+        }
+        return rateios;
+    }
+
+    public boolean FindKey(int codCond, int codBlo) {
         Connection conn;
         conn = null;
         PreparedStatement pstm;
@@ -144,17 +216,16 @@ public class RateioDao {
         ResultSet rs;
         rs = null;
         boolean achouChave = false;
-        
-        
+
         try {
             conn = Conectar.getConexao();
             pstm = conn.prepareStatement(FindKey);
-            pstm.setInt(1, codCond);       
-            pstm.setInt(1, codBlo);   
+            pstm.setInt(1, codCond);
+            pstm.setInt(1, codBlo);
             rs = pstm.executeQuery();
             Rateio c = new Rateio();
-            
-            while (rs.next()){
+
+            while (rs.next()) {
                 achouChave = true;
                 break;
             }

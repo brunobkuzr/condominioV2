@@ -5,7 +5,6 @@
  */
 package model;
 
-import dao.EscritorioDao;
 
 /**
  *
@@ -102,29 +101,5 @@ public class Escritorio {
     @Override
     public String toString() {
         return "Escritorio{" + "nome=" + nome + ", telefone=" + telefone + ", email=" + email + ", logradouro=" + logradouro + ", endereco=" + endereco + ", bairro=" + bairro + ", numero=" + numero + ", complemento=" + complemento + '}';
-    }
-    
-    public boolean salvar(){
-        boolean cadastrado = false;
-        EscritorioDao dao = new EscritorioDao();
-        
-        if (this != null) {            
-            dao.adicionar(this);
-            cadastrado = true;
-        }   
-        return cadastrado;
-    }
-    
-    public boolean atualizar(Escritorio e){
-        EscritorioDao dao = new EscritorioDao();
-        boolean atualizado = false;
-        if (e != null) {
-            dao.atualizar(e);
-            atualizado = true;
-        }
-        
-        return atualizado;
-    }
-
-
+    }   
 }

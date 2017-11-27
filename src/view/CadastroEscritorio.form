@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" pref="321" max="-2" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -38,52 +38,50 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
+                                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="edNome" max="32767" attributes="0"/>
+                              <Component id="edComplemento" alignment="0" max="32767" attributes="0"/>
+                              <Component id="edEndereco" alignment="0" max="32767" attributes="0"/>
+                              <Component id="edEmail" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cbLogradouro" alignment="0" pref="211" max="32767" attributes="0"/>
+                              <Component id="edBairro" alignment="0" max="32767" attributes="0"/>
+                              <Component id="edNumero" alignment="0" max="32767" attributes="0"/>
+                              <Component id="edTelefone" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="edNome" alignment="0" max="32767" attributes="0"/>
-                      <Component id="edTelefone" alignment="0" max="32767" attributes="0"/>
-                      <Component id="edEmail" alignment="0" min="-2" pref="151" max="-2" attributes="0"/>
-                      <Component id="edEndereco" alignment="0" min="-2" pref="224" max="-2" attributes="0"/>
-                      <Component id="edBairro" alignment="0" max="32767" attributes="0"/>
-                      <Component id="edNumero" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="72" pref="72" max="-2" attributes="0"/>
-                          <Component id="cbLogradouro" min="-2" pref="108" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
                           <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -126,8 +124,13 @@
                       <Component id="edNumero" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="edComplemento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="25" max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -178,8 +181,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="edNome">
         </Component>
-        <Component class="javax.swing.JTextField" name="edTelefone">
-        </Component>
         <Component class="javax.swing.JTextField" name="edEmail">
         </Component>
         <Component class="javax.swing.JTextField" name="edEndereco">
@@ -191,17 +192,70 @@
         <Component class="javax.swing.JComboBox" name="cbLogradouro">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="43">
+                <StringItem index="0" value="Aeroporto"/>
+                <StringItem index="1" value="Alameda"/>
+                <StringItem index="2" value="&#xc1;rea"/>
+                <StringItem index="3" value="Avenida"/>
+                <StringItem index="4" value="Campo"/>
+                <StringItem index="5" value="Ch&#xe1;cara"/>
+                <StringItem index="6" value="Col&#xf4;nia"/>
+                <StringItem index="7" value="Condom&#xed;nio"/>
+                <StringItem index="8" value="Conjunto"/>
+                <StringItem index="9" value="Distrito"/>
+                <StringItem index="10" value="Esplanada"/>
+                <StringItem index="11" value="Esta&#xe7;&#xe3;o"/>
+                <StringItem index="12" value="Estrada"/>
+                <StringItem index="13" value="Favela"/>
+                <StringItem index="14" value="Feira"/>
+                <StringItem index="15" value="Jardim"/>
+                <StringItem index="16" value="Ladeira"/>
+                <StringItem index="17" value="Lago"/>
+                <StringItem index="18" value="Lagoa"/>
+                <StringItem index="19" value="Largo"/>
+                <StringItem index="20" value="Loteamento"/>
+                <StringItem index="21" value="Morro"/>
+                <StringItem index="22" value="N&#xfa;cleo"/>
+                <StringItem index="23" value="Parque"/>
+                <StringItem index="24" value="Passarela"/>
+                <StringItem index="25" value="P&#xe1;tio"/>
+                <StringItem index="26" value="Pra&#xe7;a"/>
+                <StringItem index="27" value="Quadra"/>
+                <StringItem index="28" value="Recanto"/>
+                <StringItem index="29" value="Residencial"/>
+                <StringItem index="30" value="Rodovia"/>
+                <StringItem index="31" value="Rua"/>
+                <StringItem index="32" value="Setor"/>
+                <StringItem index="33" value="S&#xed;tio"/>
+                <StringItem index="34" value="Travessa"/>
+                <StringItem index="35" value="Trecho"/>
+                <StringItem index="36" value="Trevo"/>
+                <StringItem index="37" value="Vale"/>
+                <StringItem index="38" value="Vereda"/>
+                <StringItem index="39" value="Via"/>
+                <StringItem index="40" value="Viaduto"/>
+                <StringItem index="41" value="Viela"/>
+                <StringItem index="42" value="Vila"/>
               </StringArray>
             </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel9">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Complemento"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="edComplemento">
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="edTelefone">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="(##) -#####-####    " subtype="-1" type="5"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

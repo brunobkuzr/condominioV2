@@ -82,15 +82,15 @@
                                   <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="edTelefone" min="-2" pref="193" max="-2" attributes="0"/>
-                                  <Component id="edEmail" min="-2" pref="193" max="-2" attributes="0"/>
-                                  <Component id="edCoeficiente" min="-2" pref="193" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="edEmail" pref="193" max="32767" attributes="0"/>
+                                  <Component id="edCoeficiente" pref="193" max="32767" attributes="0"/>
                                   <Component id="cbLogradouro" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <Component id="edEndereco" min="-2" pref="193" max="-2" attributes="0"/>
-                                  <Component id="edBairro" min="-2" pref="193" max="-2" attributes="0"/>
-                                  <Component id="edNumero" min="-2" pref="193" max="-2" attributes="0"/>
-                                  <Component id="edComplemento" min="-2" pref="193" max="-2" attributes="0"/>
+                                  <Component id="edEndereco" pref="193" max="32767" attributes="0"/>
+                                  <Component id="edBairro" pref="193" max="32767" attributes="0"/>
+                                  <Component id="edNumero" pref="193" max="32767" attributes="0"/>
+                                  <Component id="edComplemento" pref="193" max="32767" attributes="0"/>
+                                  <Component id="edTelefone" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -124,9 +124,9 @@
                       <Component id="lbNome" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="edTelefone" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="edTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
@@ -231,8 +231,6 @@
             <Property name="text" type="java.lang.String" value="nome"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="edTelefone">
-        </Component>
         <Component class="javax.swing.JTextField" name="edEmail">
         </Component>
         <Component class="javax.swing.JTextField" name="edCoeficiente">
@@ -240,11 +238,50 @@
         <Component class="javax.swing.JComboBox" name="cbLogradouro">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="43">
+                <StringItem index="0" value="Aeroporto"/>
+                <StringItem index="1" value="Alameda"/>
+                <StringItem index="2" value="&#xc1;rea"/>
+                <StringItem index="3" value="Avenida"/>
+                <StringItem index="4" value="Campo"/>
+                <StringItem index="5" value="Ch&#xe1;cara"/>
+                <StringItem index="6" value="Col&#xf4;nia"/>
+                <StringItem index="7" value="Condom&#xed;nio"/>
+                <StringItem index="8" value="Conjunto"/>
+                <StringItem index="9" value="Distrito"/>
+                <StringItem index="10" value="Esplanada"/>
+                <StringItem index="11" value="Esta&#xe7;&#xe3;o"/>
+                <StringItem index="12" value="Estrada"/>
+                <StringItem index="13" value="Favela"/>
+                <StringItem index="14" value="Feira"/>
+                <StringItem index="15" value="Jardim"/>
+                <StringItem index="16" value="Ladeira"/>
+                <StringItem index="17" value="Lago"/>
+                <StringItem index="18" value="Lagoa"/>
+                <StringItem index="19" value="Largo"/>
+                <StringItem index="20" value="Loteamento"/>
+                <StringItem index="21" value="Morro"/>
+                <StringItem index="22" value="N&#xfa;cleo"/>
+                <StringItem index="23" value="Parque"/>
+                <StringItem index="24" value="Passarela"/>
+                <StringItem index="25" value="P&#xe1;tio"/>
+                <StringItem index="26" value="Pra&#xe7;a"/>
+                <StringItem index="27" value="Quadra"/>
+                <StringItem index="28" value="Recanto"/>
+                <StringItem index="29" value="Residencial"/>
+                <StringItem index="30" value="Rodovia"/>
+                <StringItem index="31" value="Rua"/>
+                <StringItem index="32" value="Setor"/>
+                <StringItem index="33" value="S&#xed;tio"/>
+                <StringItem index="34" value="Travessa"/>
+                <StringItem index="35" value="Trecho"/>
+                <StringItem index="36" value="Trevo"/>
+                <StringItem index="37" value="Vale"/>
+                <StringItem index="38" value="Vereda"/>
+                <StringItem index="39" value="Via"/>
+                <StringItem index="40" value="Viaduto"/>
+                <StringItem index="41" value="Viela"/>
+                <StringItem index="42" value="Vila"/>
               </StringArray>
             </Property>
           </Properties>
@@ -318,6 +355,13 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="text" type="java.lang.String" value="id"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="edTelefone">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="(##) - ##### - ####" subtype="-1" type="5"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
