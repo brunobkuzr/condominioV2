@@ -29,13 +29,13 @@ public class RateioDao {
     private final String UPDATE = "UPDATE Rateio SET "
             + "Valor = ?"
             + "WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and (tbapartamento_idApart = ?) and (Referencia = ?) ";
-    private final String LIST = "SELECT * FROM Rateio where (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
+    private final String LIST = "SELECT * FROM tbRateio where (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?)";
-    private final String LISTCAD = "SELECT * FROM Rateio where (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
+    private final String LISTCAD = "SELECT * FROM tbRateio where (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?)";
-    private final String DELETE = "DELETE FROM Rateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
+    private final String DELETE = "DELETE FROM tbRateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?)";
-    private final String FindKey = "SELECT * from Rateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
+    private final String FindKey = "SELECT * from tbRateio WHERE (tbapartamento_tbBloco_tbCondominio_idCondominio = ?) and (tbapartamento_tbBloco_idBloco = ?) and"
             + "(tbapartamento_idApart = ?) and  (Referencia = ?) ";
 
     private final String FindRateio = "SELECT * FROM tbrateio WHERE tbapartamento_tbBloco_tbCondominio_idCondominio = ? and Referencia = ?";
@@ -155,7 +155,7 @@ public class RateioDao {
         ArrayList<Rateio> rateios = new ArrayList<Rateio>();
         try {
             conn = Conectar.getConexao();
-            pstm = conn.prepareStatement(LIST);
+            pstm = conn.prepareStatement(LISTCAD);
             pstm.setInt(1, ap.getIdCond());
             pstm.setInt(2, ap.getIdBloco());
             pstm.setInt(3, ap.getIdApart());            
