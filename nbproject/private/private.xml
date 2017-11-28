@@ -4,21 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/model/Rateio.java</file>
+            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/model/Apartamento.java</file>
+            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/dao/CondominioDao.java</file>
             <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/view/LancDesp.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/view/GerarRelatorio.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/view/DespesaForm.java</file>
             <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/view/CadastroParametroLeitura.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/view/CadastroConsumos.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/view/CadastroEscritorio.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/model/Lancamentos.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/view/RealizarRateio.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/model/Relatorio.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/view/CadastroBloco.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/dao/RateioDao.java</file>
             <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/dao/ApartamentoDao.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/view/CadastroCondominio.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/view/CadastroApartamento.java</file>
-            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/view/Inicio.java</file>
+            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/model/Condominio.java</file>
+            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/dao/AguaDao.java</file>
+            <file>file:/C:/Users/Bruno/Desktop/Nova%20pasta1/trunk/src/view/RealizarRateio.java</file>
         </group>
     </open-files>
 </project-private>

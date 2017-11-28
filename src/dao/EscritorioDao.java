@@ -38,7 +38,7 @@ public class EscritorioDao {
             + "numero = ?, "
             + "complemento = ?";
     private final String LIST = "SELECT *FROM tbEscritorio";
-    private final String EXISTS = "SELECT Count (*) from tbEscritorio";
+    private final String EXISTS = "SELECT * from tbEscritorio";
 //    private final String DELETE = "DELETE FROM tbEscritorio WHERE idCondominio =?";
 
     public void adicionar(Escritorio esc) {
@@ -102,7 +102,7 @@ public class EscritorioDao {
     }
     
     public boolean existeCadastro(){
-        boolean existeCadastro = true;
+        boolean existeCadastro = false;
         Connection conn;
         conn = null;
         conn = Conectar.getConexao();
@@ -112,8 +112,8 @@ public class EscritorioDao {
             pstm = conn.prepareStatement(EXISTS);
             pstm.execute();
             rs = pstm.executeQuery();
-            if (rs.wasNull()) {
-                existeCadastro = false;
+            while (rs.next()){
+                existeCadastro = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(EscritorioDao.class.getName()).log(Level.SEVERE, null, ex);

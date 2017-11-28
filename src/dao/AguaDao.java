@@ -79,7 +79,7 @@ public class AguaDao {
                         + "dados " + e.getMessage());
             }
         } else {
-            System.out.println("O agu enviado por parâmetro está vazio");
+            System.out.println("O água enviado por parâmetro está vazio");
         }
     }
 

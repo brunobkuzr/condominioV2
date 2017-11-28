@@ -5,6 +5,9 @@
  */
 package model;
 
+import dao.LancamentosDao;
+import java.util.List;
+
 /**
  *
  * @author Lucas_Reinert
@@ -67,6 +70,11 @@ public class Lancamentos {
 
     public void setTipoRateio(int tipoRateio) {
         this.tipoRateio = tipoRateio;
+    }
+    
+    public List<Lancamentos> listar(){
+        LancamentosDao dao = new LancamentosDao();
+        return dao.list();
     }
     
     

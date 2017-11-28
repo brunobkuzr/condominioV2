@@ -95,6 +95,9 @@ public class ParametroLeituraDao {
             rs = pstm.executeQuery();
             while (rs.next()) {
                 String str = rs.getString("MAX(Seq)");
+                if(str == "9"){
+                    seq = 10;
+                }
                 if (str == null) {
                     seq = 1;
                 } else {

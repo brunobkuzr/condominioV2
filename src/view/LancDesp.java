@@ -11,6 +11,7 @@ import dao.LancamentosDao;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Despesa;
 import model.Lancamentos;
 
 /**
@@ -19,6 +20,8 @@ import model.Lancamentos;
  */
 public class LancDesp extends javax.swing.JDialog {
 
+     Lancamentos des  = new Lancamentos();
+    List<Lancamentos> listaDespesas = des.listar();
     LancamentosDao dao = new LancamentosDao();
     
 
@@ -28,6 +31,7 @@ public class LancDesp extends javax.swing.JDialog {
     public LancDesp(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        carregaTabela();
     }
 
     /**
@@ -119,6 +123,11 @@ public class LancDesp extends javax.swing.JDialog {
         }
 
         jButton2.setText("Excluir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Coeficiente", "Apartamento" }));
 
@@ -215,7 +224,14 @@ public class LancDesp extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(null, "Condomínio " + edCodCon.getText() + " não encontrado!");
         }
+        carregaTabela();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        LancamentosDao dao = new LancamentosDao();
+        dao.remover(Integer.parseInt(edCodCon.getText()), Integer.parseInt(edCodDesp.getText()), edReferencia.getText());
+        carregaTabela();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,23 +295,20 @@ public class LancDesp extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 public void carregaTabela() {
-    Lancamentos lancamento = new Lancamentos();
-    lancamento.setIdCond(Integer.parseInt(edCodCon.getText()));
-    lancamento.setReferencia(edReferencia.getText());
-    List<Lancamentos> listaLancamentos = dao.listar(lancamento);
         try {
             DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
             int nlinhas = this.jTable1.getRowCount();
+            listaDespesas = des.listar();
             for (int i = 0; i < nlinhas; i++) {
                 dtm.removeRow(0);
             }
-            for (int i = 0; i < listaLancamentos.size(); i++) {
-                Lancamentos l = listaLancamentos.get(i);
+            for (int i = 0; i < listaDespesas.size(); i++) {
+                Lancamentos c = listaDespesas.get(i);
                 dtm.addRow(new String[]{
-                    String.valueOf(l.getIdCond()),
-                    String.valueOf(l.getIdDesp()),
-                    l.getReferencia(),
-                    String.valueOf(l.getValor())});
+                    String.valueOf(c.getIdCond()),
+                    String.valueOf(c.getIdDesp()),
+                    String.valueOf(c.getReferencia()),
+                    String.valueOf(c.getValor())});
             }
         } catch (Exception e) {
         }

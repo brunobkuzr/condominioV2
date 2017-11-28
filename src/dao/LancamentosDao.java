@@ -33,6 +33,7 @@ public class LancamentosDao {
     private final String LIST = "SELECT * FROM tbLancDesp where (tbcondominio_idCondominio = ?) and (Referencia = ?)";
     private final String DELETE = "DELETE FROM tbLancDesp WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?)";
     private final String FindKey = "SELECT * from tbLancDesp WHERE (tbcondominio_idCondominio = ?) and (tbDespesas_idDespesas = ?) and (Referencia = ?)";
+    private final String LISTA = "SELECT * FROM tbLancDesp";
 
     public void adicionar(Lancamentos lanc) {
 
@@ -168,4 +169,33 @@ public class LancamentosDao {
         }
         return achouChave;
     }
+    public List<Lancamentos> list() {
+        Connection conn;
+        conn = null;
+        PreparedStatement pstm;
+        pstm = null;
+        ResultSet rs;
+        rs = null;
+        ArrayList<Lancamentos> lancamentos = new ArrayList<>();
+        try {
+            conn = Conectar.getConexao();
+            pstm = conn.prepareStatement(LISTA);
+                       rs = pstm.executeQuery();
+            while (rs.next()) {
+                Lancamentos l = new Lancamentos();
+                
+                    l.setIdCond(rs.getInt("tbcondominio_idCondominio"));
+                    l.setIdDesp(rs.getInt("tbDespesas_idDespesas"));
+                    l.setReferencia(rs.getString("Referencia"));
+                    l.setValor(rs.getFloat("Valor"));
+                                    
+                lancamentos.add(l);
+            }
+            Conectar.fechaConexao(conn, pstm, rs);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar clientes" + e.getMessage());
+        }
+        return lancamentos;
+    }
+
 }

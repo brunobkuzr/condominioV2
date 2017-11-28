@@ -99,11 +99,11 @@ public class Rateio {
 
                 }
                 idCond = apartamento.getIdCond();
-                System.out.println(idCond);
+               
                 idBloco = apartamento.getIdBloco();
-                System.out.println(idBloco);
+                
                 idApart = apartamento.getIdApart();
-                System.out.println(idApart);
+                
                 referencia = lancamentos.get(0).getReferencia();// todos os lançamentos vão vir com a mesma referência, então eu pego a referência do primeiro.
               
                 int mes = Integer.parseInt(referencia.substring(0, 2));
@@ -195,7 +195,7 @@ public class Rateio {
                         valor = valor + pl.valorRateio(2, esgDao.listar(esg).getLei11(), apartamento);
                         
                         valor = valor + pl.valorRateio(3, gasDao.listar(gas).getLei11(), apartamento);
-                        JOptionPane.showMessageDialog(null, valor + " gas");
+                       
                         
                         break;
                     case 12:
@@ -208,8 +208,9 @@ public class Rateio {
                 // salvar..
                 dao.adicionar(this);
             }
-            JOptionPane.showMessageDialog(null, "Rateio cadastrado com sucesso");
+            
         }
+        JOptionPane.showMessageDialog(null, "Rateio cadastrado com sucesso");
     }
 
 }

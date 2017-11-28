@@ -47,7 +47,7 @@ public class CadastroEscritorio extends javax.swing.JDialog {
         edEndereco = new javax.swing.JTextField();
         edBairro = new javax.swing.JTextField();
         edNumero = new javax.swing.JTextField();
-        cbLogradouro = new javax.swing.JComboBox<String>();
+        cbLogradouro = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         edComplemento = new javax.swing.JTextField();
         edTelefone = new javax.swing.JFormattedTextField();
@@ -75,7 +75,7 @@ public class CadastroEscritorio extends javax.swing.JDialog {
 
         jLabel8.setText("Número");
 
-        cbLogradouro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aeroporto", "Alameda", "Área", "Avenida", "Campo", "Chácara", "Colônia", "Condomínio", "Conjunto", "Distrito", "Esplanada", "Estação", "Estrada", "Favela", "Feira", "Jardim", "Ladeira", "Lago", "Lagoa", "Largo", "Loteamento", "Morro", "Núcleo", "Parque", "Passarela", "Pátio", "Praça", "Quadra", "Recanto", "Residencial", "Rodovia", "Rua", "Setor", "Sítio", "Travessa", "Trecho", "Trevo", "Vale", "Vereda", "Via", "Viaduto", "Viela", "Vila" }));
+        cbLogradouro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aeroporto", "Alameda", "Área", "Avenida", "Campo", "Chácara", "Colônia", "Condomínio", "Conjunto", "Distrito", "Esplanada", "Estação", "Estrada", "Favela", "Feira", "Jardim", "Ladeira", "Lago", "Lagoa", "Largo", "Loteamento", "Morro", "Núcleo", "Parque", "Passarela", "Pátio", "Praça", "Quadra", "Recanto", "Residencial", "Rodovia", "Rua", "Setor", "Sítio", "Travessa", "Trecho", "Trevo", "Vale", "Vereda", "Via", "Viaduto", "Viela", "Vila" }));
 
         jLabel9.setText("Complemento");
 
@@ -176,6 +176,7 @@ public class CadastroEscritorio extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

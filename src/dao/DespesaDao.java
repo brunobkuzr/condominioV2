@@ -91,6 +91,7 @@ public class DespesaDao {
             pstm.setInt(1, codDesp);
             pstm.execute();
             Conectar.fechaConexao(conn, pstm);
+            JOptionPane.showMessageDialog(null, "Despesa excluida com sucesso.");
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir despesa do banco de dados " + e.getMessage());

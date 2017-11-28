@@ -40,6 +40,8 @@ public class CondominioDao {
     private final String LIST = "SELECT *FROM tbCondominio";
     private final String DELETE = "DELETE FROM tbCondominio WHERE idCondominio =?";
     private final String FindKey = "SELECT * from tbCondominio WHERE idCondominio = ? ";
+        private final String LISTA = "SELECT *FROM tbCondominio WHERE idCondominio = ?";
+
 
     public void adicionar(Condominio con) {
 
@@ -168,13 +170,15 @@ public class CondominioDao {
         ArrayList<Condominio> condominios = new ArrayList<Condominio>();
         try {
             conn = Conectar.getConexao();
-            pstm = conn.prepareStatement(LIST);
+            pstm = conn.prepareStatement(LISTA);
+            pstm.setInt(1, idCond);
             rs = pstm.executeQuery();
             while (rs.next()) {
                 if(rs.getInt("idCondominio") == idCond){
                     
                 cond.setNome(rs.getString("nomeCondominio"));
                 cond.setCoeficiente(rs.getFloat("coeficiente"));
+                
                        
                 break;
                 }

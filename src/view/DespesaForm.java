@@ -186,6 +186,8 @@ public class DespesaForm extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        DespesaDao dao = new DespesaDao();
+        dao.remover(Integer.parseInt(edCodDesp.getText()));
         carregaTabela();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed

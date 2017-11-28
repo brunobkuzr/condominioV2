@@ -30,9 +30,13 @@ public class Relatorio {
 
     public void Criar(ArrayList<Rateio> rateios, int cond) {
 
+        
+        int mes = Integer.parseInt(rateios.get(0).getReferencia().substring(0, 2));
+        int ano = Integer.parseInt(rateios.get(0).getReferencia().substring(3, 7));
+        
         try {
             // local do arquivo
-            String filename = "C:/Relatorio/" + "Relatorio_Condominio_" + rateios.get(0).getIdCond() + "_" + rateios.get(0).getReferencia() + ".xls";
+            String filename = "C:/Relatorio/" + "Relatorio_Condominio_" + rateios.get(0).getIdCond() + "_" + mes + "_" + ano + ".xls";
             HSSFWorkbook workbook = new HSSFWorkbook();
             HSSFSheet sheet = workbook.createSheet("FirstSheet");
             HSSFCellStyle estiloCor = workbook.createCellStyle();
